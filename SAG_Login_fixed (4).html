@@ -1,0 +1,2157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAG Payroll — Samtulana Antarjala Gathaka Pvt Ltd</title>
+<!-- EmailJS SDK for real OTP email delivery -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#0D1117;--ink2:#1C2333;--ink3:#2D3748;
+  --paper:#F7F6F2;--paper2:#EDECEA;--paper3:#E2E0DB;
+  --gold:#C9A84C;--gold2:#E8C96A;--gold-dim:rgba(201,168,76,.12);--gold-mid:rgba(201,168,76,.25);
+  --teal:#2A9D8F;--teal-dim:rgba(42,157,143,.1);
+  --red:#E63946;--red-dim:rgba(230,57,70,.1);
+  --green:#2D6A4F;--green-dim:rgba(45,106,79,.1);
+  --tx:#0D1117;--mu:#6B7280;--mu2:#9CA3AF;
+  --r:10px;--ff:'IBM Plex Sans',sans-serif;--fm:'IBM Plex Mono',monospace;--fd:'Playfair Display',serif;
+  --shadow:0 2px 12px rgba(13,17,23,.08),0 1px 3px rgba(13,17,23,.06);
+  --shadow-lg:0 8px 32px rgba(13,17,23,.12),0 2px 8px rgba(13,17,23,.08);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--tx);font-family:var(--ff);-webkit-font-smoothing:antialiased;min-height:100vh}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--paper2)}
+::-webkit-scrollbar-thumb{background:var(--paper3);border-radius:10px}
+
+/* SIDEBAR */
+.layout{display:flex;min-height:100vh}
+.sidebar{width:260px;flex-shrink:0;background:var(--ink);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+.sb-logo{padding:28px 24px 20px;border-bottom:1px solid rgba(255,255,255,.07)}
+.sb-logo-name{font-family:var(--fd);font-size:17px;font-weight:700;color:#fff;line-height:1.2;letter-spacing:-.01em}
+.sb-logo-sub{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-top:4px;font-weight:500}
+.sb-logo-badge{display:inline-block;margin-top:8px;font-size:8px;letter-spacing:.12em;text-transform:uppercase;background:var(--gold-mid);border:1px solid rgba(201,168,76,.3);color:var(--gold2);padding:3px 8px;border-radius:4px;font-family:var(--fm)}
+.sb-section{padding:20px 16px 8px;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);font-weight:600}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 16px;margin:1px 8px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:500;color:rgba(255,255,255,.55);transition:all .18s;border:1px solid transparent}
+.nav-item:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.85)}
+.nav-item.active{background:var(--gold-dim);border-color:rgba(201,168,76,.2);color:var(--gold2)}
+.nav-icon{width:16px;height:16px;flex-shrink:0;opacity:.7}
+.nav-item.active .nav-icon{opacity:1}
+.sb-footer{margin-top:auto;padding:16px;border-top:1px solid rgba(255,255,255,.07)}
+.sb-user{display:flex;align-items:center;gap:10px}
+.sb-avatar{width:32px;height:32px;border-radius:50%;background:var(--gold-mid);border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--gold2);flex-shrink:0}
+.sb-user-name{font-size:12px;font-weight:600;color:#fff}
+.sb-user-role{font-size:10px;color:rgba(255,255,255,.35)}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow-x:hidden}
+.topbar{background:#fff;border-bottom:1px solid var(--paper3);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:1rem;position:sticky;top:0;z-index:50}
+.topbar-title{font-family:var(--fd);font-size:20px;font-weight:700;letter-spacing:-.01em}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.month-select{font-family:var(--ff);font-size:12px;font-weight:500;background:var(--paper);border:1px solid var(--paper3);border-radius:8px;color:var(--tx);padding:7px 12px;cursor:pointer;outline:none}
+.month-select:focus{border-color:var(--gold)}
+.top-btn{font-family:var(--ff);font-size:12px;font-weight:600;padding:7px 14px;border-radius:8px;cursor:pointer;transition:all .18s;border:none;white-space:nowrap}
+.top-btn.primary{background:var(--ink);color:#fff}
+.top-btn.primary:hover{background:var(--ink2)}
+.top-btn.gold{background:var(--gold);color:#fff}
+.top-btn.gold:hover{background:var(--gold2);color:var(--ink)}
+.top-btn.ghost{background:transparent;border:1px solid var(--paper3);color:var(--mu)}
+.top-btn.ghost:hover{border-color:var(--mu2);color:var(--tx)}
+.top-btn:disabled{opacity:.5;cursor:not-allowed}
+.content{flex:1;padding:28px}
+
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
+
+/* KPI */
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.kpi-card{background:#fff;border:1px solid var(--paper3);border-radius:var(--r);padding:18px 20px;position:relative;overflow:hidden;transition:box-shadow .2s}
+.kpi-card:hover{box-shadow:var(--shadow)}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi-card.k-gold::before{background:var(--gold)}
+.kpi-card.k-teal::before{background:var(--teal)}
+.kpi-card.k-red::before{background:var(--red)}
+.kpi-card.k-ink::before{background:var(--ink)}
+.kpi-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);font-weight:600;margin-bottom:8px}
+.kpi-value{font-family:var(--fm);font-size:22px;font-weight:500;letter-spacing:-.02em;color:var(--tx)}
+.kpi-sub{font-size:11px;color:var(--mu);margin-top:4px}
+
+/* SECTION */
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:1rem;flex-wrap:wrap}
+.sec-title{font-family:var(--fd);font-size:18px;font-weight:700;letter-spacing:-.01em}
+.sec-sub{font-size:12px;color:var(--mu);margin-top:2px}
+
+/* TABLE */
+.tbl-wrap{background:#fff;border:1px solid var(--paper3);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.tbl-wrap table{width:100%;border-collapse:collapse}
+.tbl-wrap thead th{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);font-weight:600;padding:12px 16px;border-bottom:1px solid var(--paper3);text-align:left;background:var(--paper);white-space:nowrap}
+.tbl-wrap thead th.r{text-align:right}
+.tbl-wrap tbody tr{border-bottom:1px solid var(--paper2);transition:background .15s}
+.tbl-wrap tbody tr:last-child{border-bottom:none}
+.tbl-wrap tbody tr:hover{background:var(--paper)}
+.tbl-wrap tbody td{padding:12px 16px;font-size:13px;color:var(--tx);white-space:nowrap}
+.tbl-wrap tbody td.r{text-align:right;font-family:var(--fm);font-size:12px}
+.tbl-wrap tbody td.mu{color:var(--mu)}
+
+/* BADGES */
+.badge{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;font-family:var(--fm)}
+.badge-green{background:var(--green-dim);color:var(--green)}
+.badge-gold{background:var(--gold-dim);color:var(--gold)}
+.badge-red{background:var(--red-dim);color:var(--red)}
+.badge-teal{background:var(--teal-dim);color:var(--teal)}
+.badge-ink{background:rgba(13,17,23,.08);color:var(--ink3)}
+
+/* ICON BTNS */
+.icon-btn{background:none;border:none;cursor:pointer;padding:5px 8px;border-radius:6px;color:var(--mu);transition:all .15s;font-size:14px}
+.icon-btn:hover{background:var(--paper2);color:var(--tx)}
+.icon-btn.danger:hover{background:var(--red-dim);color:var(--red)}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(13,17,23,.55);z-index:200;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:14px;width:100%;max-width:600px;max-height:90vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:var(--shadow-lg);animation:modalIn .2s ease}
+@keyframes modalIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--paper3)}
+.modal-title{font-family:var(--fd);font-size:18px;font-weight:700}
+.modal-close{background:none;border:none;cursor:pointer;font-size:18px;color:var(--mu);padding:4px;border-radius:6px;transition:color .15s}
+.modal-close:hover{color:var(--red)}
+.modal-body{overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:16px}
+.modal-foot{padding:16px 24px;border-top:1px solid var(--paper3);display:flex;justify-content:flex-end;gap:10px}
+
+/* FORM */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-grid.cols3{grid-template-columns:1fr 1fr 1fr}
+.form-grid.cols1{grid-template-columns:1fr}
+.field{display:flex;flex-direction:column;gap:5px}
+.field.span2{grid-column:1/-1}
+.field label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);font-weight:600}
+.field input,.field select,.field textarea{font-family:var(--ff);font-size:13px;background:var(--paper);border:1px solid var(--paper3);border-radius:8px;color:var(--tx);padding:9px 12px;outline:none;transition:border-color .2s;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);background:#fff}
+.field textarea{resize:vertical;min-height:60px}
+.field input[type=number]{font-family:var(--fm)}
+
+/* PAYSLIP */
+.payslip{background:#fff;font-family:var(--ff);max-width:700px;margin:0 auto}
+.ps-header{background:var(--ink);padding:24px 28px;display:flex;align-items:center;justify-content:space-between}
+.ps-co-name{font-family:var(--fd);font-size:18px;color:#fff;font-weight:700}
+.ps-co-sub{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold2);margin-top:3px}
+.ps-badge{background:var(--gold);color:#fff;font-size:10px;font-weight:700;padding:5px 12px;border-radius:4px;letter-spacing:.06em;text-transform:uppercase;font-family:var(--fm)}
+.ps-meta{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:2px solid var(--gold)}
+.ps-meta-block{padding:14px 20px;background:var(--paper)}
+.ps-meta-block:first-child{border-right:1px solid var(--paper3)}
+.ps-meta-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;font-size:12px}
+.ps-meta-row:last-child{margin-bottom:0}
+.ps-meta-label{color:var(--mu);font-weight:500}
+.ps-meta-val{font-family:var(--fm);font-weight:500;color:var(--tx);font-size:11px}
+.ps-section-title{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--mu);font-weight:600;padding:10px 20px 6px;background:var(--paper);border-bottom:1px solid var(--paper3);border-top:1px solid var(--paper3)}
+.ps-line{display:flex;justify-content:space-between;align-items:center;padding:8px 20px;font-size:13px;border-bottom:1px solid var(--paper2)}
+.ps-line:last-child{border-bottom:none}
+.ps-line-label{color:var(--tx)}
+.ps-line-val{font-family:var(--fm);font-size:12px;font-weight:500}
+.ps-line-val.green{color:var(--green)}
+.ps-line-val.red{color:var(--red)}
+.ps-totals{display:grid;grid-template-columns:1fr 1fr 1fr;background:var(--ink);padding:16px 20px;gap:10px}
+.ps-total-block{text-align:center}
+.ps-total-label{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:600}
+.ps-total-val{font-family:var(--fm);font-size:16px;font-weight:500;color:#fff;margin-top:3px}
+.ps-total-val.gold{color:var(--gold2)}
+.ps-footer-note{padding:12px 20px;font-size:10px;color:var(--mu);text-align:center;border-top:1px solid var(--paper3);line-height:1.6}
+.ps-emp-info{padding:14px 20px;background:#fff;border-bottom:1px solid var(--paper3)}
+.ps-emp-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.ps-emp-row{font-size:12px;display:flex;gap:6px}
+.ps-emp-key{color:var(--mu);min-width:100px;flex-shrink:0}
+.ps-emp-val{font-weight:500;color:var(--tx)}
+
+/* DASHBOARD */
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px}
+.dash-card{background:#fff;border:1px solid var(--paper3);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.dash-card-title{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);font-weight:600;margin-bottom:14px}
+.activity-list{display:flex;flex-direction:column;gap:0}
+.activity-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--paper2)}
+.activity-item:last-child{border-bottom:none}
+.activity-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.activity-dot.green{background:var(--green)}
+.activity-dot.gold{background:var(--gold)}
+.activity-dot.red{background:var(--red)}
+.activity-text{font-size:12px;color:var(--tx);flex:1}
+.activity-time{font-size:10px;color:var(--mu2);font-family:var(--fm);white-space:nowrap}
+.dept-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.dept-bar-label{font-size:11px;color:var(--tx);width:90px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dept-bar-track{flex:1;height:6px;background:var(--paper2);border-radius:4px;overflow:hidden}
+.dept-bar-fill{height:100%;border-radius:4px;background:var(--gold);transition:width .6s cubic-bezier(.4,0,.2,1)}
+.dept-bar-val{font-family:var(--fm);font-size:11px;color:var(--mu);width:60px;text-align:right;flex-shrink:0}
+
+/* TOAST */
+#toast{position:fixed;bottom:20px;right:20px;z-index:999;font-family:var(--ff);font-size:12px;font-weight:500;padding:10px 18px;border-radius:8px;box-shadow:var(--shadow-lg);transform:translateY(40px);opacity:0;transition:all .25s;pointer-events:none}
+#toast.show{transform:none;opacity:1}
+#toast.ok{background:var(--ink);color:#fff;border-left:3px solid var(--gold)}
+#toast.err{background:var(--ink);color:#fff;border-left:3px solid var(--red)}
+
+/* CONFIRM BAR — lives at content level, always visible */
+#confirmBar{display:none;align-items:center;gap:10px;background:var(--red-dim);border:1px solid rgba(230,57,70,.25);border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px}
+#confirmBar.show{display:flex}
+#confirmBar .cbmsg{flex:1;color:var(--red);font-weight:500}
+.cb-btn{font-family:var(--ff);font-size:11px;font-weight:600;padding:5px 12px;border-radius:6px;cursor:pointer;border:none}
+.cb-yes{background:var(--red);color:#fff}
+.cb-no{background:transparent;border:1px solid rgba(230,57,70,.3);color:var(--red)}
+
+/* SYNC STATUS BAR */
+#syncBar{display:none;align-items:center;gap:8px;padding:7px 12px;border-radius:8px;margin-bottom:14px;font-size:11px;font-family:var(--fm);border:1px solid var(--paper3)}
+#syncBar.show{display:flex}
+#syncBar.syncing{background:rgba(42,157,143,.08);border-color:rgba(42,157,143,.3);color:var(--teal)}
+#syncBar.ok{background:var(--green-dim);border-color:rgba(45,106,79,.25);color:var(--green)}
+#syncBar.err{background:var(--red-dim);border-color:rgba(230,57,70,.25);color:var(--red)}
+.sdot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.sdot.pulse{animation:blink .8s infinite}
+
+/* SEARCH */
+.search-wrap{position:relative;flex:1;max-width:280px}
+.search-wrap input{width:100%;background:var(--paper);border:1px solid var(--paper3);border-radius:8px;padding:7px 12px 7px 32px;font-family:var(--ff);font-size:12px;color:var(--tx);outline:none;transition:border-color .2s}
+.search-wrap input:focus{border-color:var(--gold);background:#fff}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--mu);font-size:13px;pointer-events:none}
+
+/* TABS */
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--paper3);margin-bottom:20px}
+.tab{font-size:12px;font-weight:600;padding:8px 16px;cursor:pointer;color:var(--mu);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .18s}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-pane{display:none}
+.tab-pane.active{display:block}
+
+/* PRINT */
+@media print{
+  .no-print{display:none!important}
+  body{background:#fff}
+  .payslip{box-shadow:none;max-width:100%;margin:0}
+  .modal-overlay{position:static;background:none;backdrop-filter:none;padding:0}
+  .modal{box-shadow:none;max-height:none;overflow:visible;border-radius:0}
+  .modal-head,.modal-foot{display:none}
+  .modal-body{overflow:visible;padding:0}
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){.sidebar{width:220px}.kpi-strip{grid-template-columns:1fr 1fr}.dash-grid{grid-template-columns:1fr}}
+@media(max-width:680px){.sidebar{display:none}.kpi-strip{grid-template-columns:1fr 1fr}.content{padding:16px}.topbar{padding:12px 16px}.form-grid{grid-template-columns:1fr}}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:48px 20px;color:var(--mu)}
+.empty-state .es-icon{font-size:32px;margin-bottom:10px;opacity:.4}
+.empty-state p{font-size:13px}
+
+/* SETTINGS */
+.settings-section{background:#fff;border:1px solid var(--paper3);border-radius:var(--r);padding:20px;margin-bottom:16px}
+.settings-section-title{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);font-weight:600;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--paper2)}
+.setting-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--paper2);gap:20px}
+.setting-row:last-child{border-bottom:none}
+.setting-info{flex:1}
+.setting-label{font-size:13px;font-weight:500;color:var(--tx)}
+.setting-desc{font-size:11px;color:var(--mu);margin-top:2px}
+.toggle-wrap label{display:flex;align-items:center;cursor:pointer;gap:8px;font-size:12px;color:var(--mu)}
+.toggle-wrap input[type=checkbox]{width:34px;height:18px;appearance:none;background:var(--paper3);border-radius:9px;position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
+.toggle-wrap input[type=checkbox]:checked{background:var(--gold)}
+.toggle-wrap input[type=checkbox]::after{content:'';position:absolute;width:14px;height:14px;background:#fff;border-radius:50%;top:2px;left:2px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle-wrap input[type=checkbox]:checked::after{transform:translateX(16px)}
+.run-banner{background:var(--ink);border-radius:var(--r);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:24px;flex-wrap:wrap}
+.run-banner-left{display:flex;flex-direction:column;gap:4px}
+.run-banner-title{font-family:var(--fd);font-size:16px;font-weight:700;color:#fff}
+.run-banner-sub{font-size:11px;color:rgba(255,255,255,.45)}
+.run-progress{flex:1;max-width:300px;margin:0 20px}
+.run-progress-bar{height:5px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+.run-progress-fill{height:100%;background:var(--gold);border-radius:3px;width:0%;transition:width .5s ease}
+.run-progress-label{font-size:10px;color:rgba(255,255,255,.4);margin-top:5px;font-family:var(--fm)}
+
+/* ── LOGIN SCREEN ── */
+#loginScreen {
+  position:fixed;inset:0;z-index:9999;background:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--ff);
+}
+#loginScreen.hidden { display:none; }
+.login-card {
+  background:#fff;border-radius:16px;padding:44px 40px;width:100%;max-width:420px;
+  box-shadow:0 24px 80px rgba(0,0,0,.4);position:relative;overflow:hidden;
+}
+.login-card::before {
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--gold),var(--gold2));
+}
+.login-logo { text-align:center;margin-bottom:28px; }
+.login-logo-name { font-family:var(--fd);font-size:20px;font-weight:800;color:var(--ink);line-height:1.2; }
+.login-logo-sub { font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-top:4px;font-weight:600; }
+.login-title { font-family:var(--fd);font-size:22px;font-weight:700;color:var(--ink);margin-bottom:6px; }
+.login-sub { font-size:12px;color:var(--mu);margin-bottom:24px; }
+.login-field { margin-bottom:16px; }
+.login-field label { display:block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);font-weight:600;margin-bottom:6px; }
+.login-field input {
+  width:100%;background:var(--paper);border:1.5px solid var(--paper3);border-radius:9px;
+  font-family:var(--ff);font-size:13px;color:var(--tx);padding:11px 14px;outline:none;
+  transition:border-color .2s,background .2s;
+}
+.login-field input:focus { border-color:var(--gold);background:#fff; }
+.login-btn {
+  width:100%;background:var(--ink);color:#fff;border:none;border-radius:9px;
+  font-family:var(--ff);font-size:13px;font-weight:600;padding:12px;cursor:pointer;
+  transition:background .18s;letter-spacing:.02em;margin-top:4px;
+}
+.login-btn:hover { background:var(--ink2); }
+.login-btn.gold { background:var(--gold);color:#fff; }
+.login-btn.gold:hover { background:var(--gold2);color:var(--ink); }
+.login-btn:disabled { opacity:.5;cursor:not-allowed; }
+.login-err { background:var(--red-dim);border:1px solid rgba(230,57,70,.25);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--red);font-weight:500;margin-bottom:14px;display:none; }
+.login-err.show { display:block; }
+.login-ok { background:var(--green-dim);border:1px solid rgba(45,106,79,.2);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--green);font-weight:500;margin-bottom:14px;display:none; }
+.login-ok.show { display:block; }
+.otp-inputs { display:flex;gap:10px;justify-content:center;margin:16px 0; }
+.otp-inputs input {
+  width:46px;height:52px;text-align:center;font-family:var(--fm);font-size:22px;font-weight:600;
+  border:1.5px solid var(--paper3);border-radius:9px;background:var(--paper);color:var(--ink);
+  outline:none;transition:border-color .2s;
+}
+.otp-inputs input:focus { border-color:var(--gold);background:#fff; }
+.otp-resend { font-size:11px;color:var(--mu);text-align:center;margin-top:10px; }
+.otp-resend span { color:var(--gold);cursor:pointer;font-weight:600; }
+.login-step { display:none; }
+.login-step.active { display:block; }
+
+/* ── ADMIN PANEL PAGE ── */
+.admin-grid { display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px; }
+.admin-card {
+  background:#fff;border:1px solid var(--paper3);border-radius:var(--r);padding:20px 22px;
+  position:relative;overflow:hidden;transition:box-shadow .2s;
+}
+.admin-card:hover { box-shadow:var(--shadow); }
+.admin-card::before { content:'';position:absolute;top:0;left:0;right:0;height:3px; }
+.admin-card.ac-gold::before { background:var(--gold); }
+.admin-card.ac-red::before { background:var(--red); }
+.admin-card.ac-teal::before { background:var(--teal); }
+.admin-card.ac-ink::before { background:var(--ink); }
+.admin-card-title { font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);font-weight:600;margin-bottom:12px; }
+.admin-user-row {
+  display:flex;align-items:center;gap:12px;padding:10px 0;
+  border-bottom:1px solid var(--paper2);
+}
+.admin-user-row:last-child { border-bottom:none; }
+.admin-user-avatar {
+  width:34px;height:34px;border-radius:50%;background:var(--gold-mid);
+  border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;
+  justify-content:center;font-size:12px;font-weight:700;color:var(--gold2);flex-shrink:0;
+}
+.admin-user-info { flex:1;min-width:0; }
+.admin-user-name { font-size:13px;font-weight:600;color:var(--tx); }
+.admin-user-meta { font-size:10px;color:var(--mu);font-family:var(--fm);margin-top:1px; }
+.admin-log-row { display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--paper2);font-size:12px; }
+.admin-log-row:last-child { border-bottom:none; }
+.admin-log-time { font-family:var(--fm);font-size:10px;color:var(--mu2);white-space:nowrap;padding-top:1px; }
+.admin-log-dot { width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px; }
+.admin-section-title { font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);font-weight:600;margin:20px 0 10px; }
+.perm-row { display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--paper2); }
+.perm-row:last-child { border-bottom:none; }
+.perm-label { font-size:13px;font-weight:500;color:var(--tx); }
+.perm-desc { font-size:11px;color:var(--mu);margin-top:2px; }
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN SCREEN ══════════════════════════════════════ -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-name">SAG Payroll</div>
+      <div class="login-logo-sub">Samtulana Antarjala Gathaka</div>
+    </div>
+
+    <!-- STEP 1: Email -->
+    <div class="login-step active" id="loginStep1">
+      <div class="login-title">Admin Login</div>
+      <div class="login-sub">Enter your admin email to receive a verification code. First-time? Your email will be registered as Super Admin.</div>
+      <div class="login-err" id="loginErr1"></div>
+      <div class="login-field">
+        <label>Admin Email</label>
+        <input type="email" id="loginEmail" placeholder="admin@company.com" autocomplete="email">
+      </div>
+      <button class="login-btn gold" onclick="sendOTP()">Send Verification Code →</button>
+    </div>
+
+    <!-- STEP 2: OTP -->
+    <div class="login-step" id="loginStep2">
+      <div class="login-title">Check Your Email</div>
+      <div class="login-sub" id="otpSubText">We sent a 6-digit code to your email. Check your inbox.</div>
+      <div class="login-ok" id="loginOk2"></div>
+      <div class="login-err" id="loginErr2"></div>
+      <div class="otp-inputs">
+        <input type="text" maxlength="1" id="otp0" oninput="otpInput(0)" onkeydown="otpKey(event,0)">
+        <input type="text" maxlength="1" id="otp1" oninput="otpInput(1)" onkeydown="otpKey(event,1)">
+        <input type="text" maxlength="1" id="otp2" oninput="otpInput(2)" onkeydown="otpKey(event,2)">
+        <input type="text" maxlength="1" id="otp3" oninput="otpInput(3)" onkeydown="otpKey(event,3)">
+        <input type="text" maxlength="1" id="otp4" oninput="otpInput(4)" onkeydown="otpKey(event,4)">
+        <input type="text" maxlength="1" id="otp5" oninput="otpInput(5)" onkeydown="otpKey(event,5)">
+      </div>
+      <button class="login-btn gold" id="verifyOtpBtn" onclick="verifyOTP()">Verify &amp; Sign In</button>
+      <div class="otp-resend">Didn&apos;t receive? <span onclick="resendOTP()" id="resendLink">Resend code</span> <span id="resendTimer" style="display:none;color:var(--mu)"></span></div>
+      <div style="text-align:center;margin-top:12px">
+        <span style="font-size:11px;color:var(--mu);cursor:pointer" onclick="backToEmail()">← Use a different email</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sb-logo">
+    <div class="sb-logo-name">Samtulana Antarjala<br>Gathaka Pvt Ltd</div>
+    <div class="sb-logo-sub">SAG — Payroll System</div>
+    <div class="sb-logo-badge">v3.0 · FY 2025–26</div>
+  </div>
+  <div class="sb-section">Main</div>
+  <div class="nav-item active" onclick="showPage('dashboard',this)">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    Dashboard
+  </div>
+  <div class="nav-item" onclick="showPage('employees',this)">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M21 21v-2a4 4 0 00-3-3.87"/></svg>
+    Employees
+  </div>
+  <div class="nav-item" onclick="showPage('payroll',this)">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M7 15h.01M11 15h2"/></svg>
+    Run Payroll
+  </div>
+  <div class="nav-item" onclick="showPage('payslips',this)">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    Payslips
+  </div>
+  <div class="sb-section">Config</div>
+  <div class="nav-item" onclick="showPage('salary',this)">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+    Salary Structure
+  </div>
+  <div class="nav-item" onclick="showPage('settings',this)">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+    Settings
+  </div>
+  <div class="nav-item" onclick="showPage('admin',this)" id="adminNavItem">
+    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Admin Panel
+  </div>
+  <div class="sb-footer">
+    <div class="sb-user">
+      <div class="sb-avatar" id="sidebarAvatar">AD</div>
+      <div style="flex:1;min-width:0"><div class="sb-user-name" id="sidebarName">Admin</div><div class="sb-user-role" id="sidebarEmail">admin@sag.com</div></div>
+    </div>
+    <button onclick="logout()" style="width:100%;margin-top:10px;background:rgba(230,57,70,.12);border:1px solid rgba(230,57,70,.2);color:#ff8a9a;border-radius:7px;padding:7px;font-family:var(--ff);font-size:11px;font-weight:600;cursor:pointer;transition:all .18s" onmouseover="this.style.background='rgba(230,57,70,.2)'" onmouseout="this.style.background='rgba(230,57,70,.12)'">&#x2190; Logout</button>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="topbar no-print">
+    <div class="topbar-title" id="pageTitle">Dashboard</div>
+    <div class="topbar-right">
+      <select class="month-select" id="globalMonth" onchange="onMonthChange()">
+        <option value="0">January</option><option value="1">February</option>
+        <option value="2">March</option><option value="3">April</option>
+        <option value="4">May</option><option value="5">June</option>
+        <option value="6">July</option><option value="7">August</option>
+        <option value="8">September</option><option value="9">October</option>
+        <option value="10">November</option><option value="11">December</option>
+      </select>
+      <select class="month-select" id="globalYear" onchange="onMonthChange()" style="width:90px"></select>
+      <button class="top-btn gold" onclick="showRunPayroll()">▶ Run Payroll</button>
+      <button class="top-btn primary" onclick="openAddEmployee()">+ Add Employee</button>
+    </div>
+  </div>
+
+  <div class="content">
+    <!-- Confirm bar OUTSIDE page divs so it is always in visible container -->
+    <div id="confirmBar">
+      <span class="cbmsg" id="confirmMsg"></span>
+      <button class="cb-btn cb-yes" id="confirmYes">Confirm</button>
+      <button class="cb-btn cb-no" onclick="hideConfirm()">Cancel</button>
+    </div>
+    <!-- Sync bar -->
+    <div id="syncBar"><span class="sdot pulse" id="sdot"></span><span id="syncMsg">Connecting…</span></div>
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div class="kpi-strip">
+        <div class="kpi-card k-gold"><div class="kpi-label">Total Payroll</div><div class="kpi-value" id="kpiPayroll">₹0</div><div class="kpi-sub" id="kpiPayrollSub">Current month</div></div>
+        <div class="kpi-card k-teal"><div class="kpi-label">Employees</div><div class="kpi-value" id="kpiEmpCount">0</div><div class="kpi-sub">Active on payroll</div></div>
+        <div class="kpi-card k-ink"><div class="kpi-label">Payslips Issued</div><div class="kpi-value" id="kpiPayslips">0</div><div class="kpi-sub" id="kpiPayslipsSub">This month</div></div>
+        <div class="kpi-card k-red"><div class="kpi-label">Total Deductions</div><div class="kpi-value" id="kpiDeductions">₹0</div><div class="kpi-sub">PF + Tax + Other</div></div>
+      </div>
+      <div class="dash-grid">
+        <div class="dash-card"><div class="dash-card-title">Department Payroll Split</div><div id="deptBars"></div></div>
+        <div class="dash-card"><div class="dash-card-title">Recent Activity</div><div class="activity-list" id="activityList"></div></div>
+      </div>
+      <div class="sec-head">
+        <div><div class="sec-title">Quick Payslip View</div><div class="sec-sub">Last 5 payslips issued</div></div>
+        <button class="top-btn ghost" onclick="showPage('payslips',document.querySelector('[onclick*=payslips]'))">View All →</button>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Employee</th><th>Department</th><th>Month</th><th class="r">Gross</th><th class="r">Deductions</th><th class="r">Net Pay</th><th>Status</th><th></th></tr></thead>
+          <tbody id="recentPayslipsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- EMPLOYEES -->
+    <div class="page" id="page-employees">
+      <div class="sec-head">
+        <div><div class="sec-title">Employee Directory</div><div class="sec-sub" id="empCountLabel">0 employees</div></div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <div class="search-wrap"><span class="search-icon">🔍</span><input id="empSearch" placeholder="Search employees…" oninput="renderEmployees()"></div>
+          <button class="top-btn primary" onclick="openAddEmployee()">+ Add Employee</button>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>#</th><th>Name</th><th>Designation</th><th>Department</th><th>Join Date</th><th class="r">Basic Salary</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody id="empBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PAYROLL -->
+    <div class="page" id="page-payroll">
+      <div class="run-banner">
+        <div class="run-banner-left">
+          <div class="run-banner-title">Monthly Payroll Run</div>
+          <div class="run-banner-sub" id="payrollBannerSub">Select month and click Run to generate payslips</div>
+        </div>
+        <div class="run-progress" id="runProgressWrap" style="display:none">
+          <div class="run-progress-bar"><div class="run-progress-fill" id="runProgressFill"></div></div>
+          <div class="run-progress-label" id="runProgressLabel">Processing…</div>
+        </div>
+        <button class="top-btn gold" onclick="runPayroll()">▶ Run Payroll for <span id="runMonthLabel">Loading…</span></button>
+      </div>
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('payrollTab','pending',this)">Pending</div>
+        <div class="tab" onclick="switchTab('payrollTab','processed',this)">Processed</div>
+      </div>
+      <div id="payrollTab-pending" class="tab-pane active">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th><input type="checkbox" id="selectAll" onclick="toggleSelectAll()"></th><th>Employee</th><th>Department</th><th class="r">Basic</th><th class="r">HRA</th><th class="r">Allowances</th><th class="r">PF Deduct</th><th class="r">Tax (TDS)</th><th class="r">Net Pay</th><th>Action</th></tr></thead>
+            <tbody id="pendingPayrollBody"></tbody>
+          </table>
+        </div>
+        <div style="margin-top:12px;display:flex;justify-content:flex-end;gap:8px">
+          <button class="top-btn ghost" onclick="renderPayrollPending()">↺ Refresh</button>
+          <button class="top-btn gold" onclick="runSelectedPayroll()">Issue Selected Payslips</button>
+        </div>
+      </div>
+      <div id="payrollTab-processed" class="tab-pane">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Employee</th><th>Month</th><th class="r">Gross</th><th class="r">Net Pay</th><th>Actions</th></tr></thead>
+            <tbody id="processedPayrollBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- PAYSLIPS -->
+    <div class="page" id="page-payslips">
+      <div class="sec-head">
+        <div><div class="sec-title">Payslip Archive</div><div class="sec-sub" id="payslipCountLabel">0 payslips issued</div></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div class="search-wrap"><span class="search-icon">🔍</span><input id="payslipSearch" placeholder="Search by name or month…" oninput="renderPayslips()"></div>
+          <select class="month-select" id="payslipMonthFilter" onchange="renderPayslips()">
+            <option value="">All Months</option>
+          </select>
+          <button class="top-btn gold" onclick="openCreatePayslip()">+ Create Payslip</button>
+        </div>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Employee</th><th>EMP ID</th><th>Department</th><th>Month</th><th class="r">Gross</th><th class="r">Deductions</th><th class="r">Net Pay</th><th>Actions</th></tr></thead>
+          <tbody id="payslipBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SALARY STRUCTURE -->
+    <div class="page" id="page-salary">
+      <div class="sec-head">
+        <div>
+          <div class="sec-title">Salary Structure Config</div>
+          <div class="sec-sub">Define components, percentages &amp; deduction rules</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span id="salaryUnsavedBadge" style="display:none;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);background:var(--gold-dim);border:1px solid rgba(201,168,76,.25);padding:4px 10px;border-radius:5px;font-family:var(--fm)">● Unsaved changes</span>
+          <button class="top-btn ghost" onclick="resetSalaryConfig()" id="salaryResetBtn" style="display:none">↩ Reset</button>
+          <button class="top-btn gold" onclick="saveSalaryConfig()" id="salarySaveBtn">💾 Save Structure</button>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">Earnings Components (% of Basic)</div>
+        <div class="setting-row"><div class="setting-info"><div class="setting-label">House Rent Allowance (HRA)</div><div class="setting-desc">Standard HRA applied to all employees</div></div><input type="number" id="hraPercent" value="0" min="0" max="100" style="width:80px;font-family:var(--fm);text-align:right;background:var(--paper);border:1px solid var(--paper3);border-radius:6px;padding:6px 10px;outline:none" oninput="markSalaryDirty()"> %</div>
+        <div class="setting-row"><div class="setting-info"><div class="setting-label">Transport Allowance</div><div class="setting-desc">Fixed or % of basic</div></div><input type="number" id="taPercent" value="0" min="0" max="100" style="width:80px;font-family:var(--fm);text-align:right;background:var(--paper);border:1px solid var(--paper3);border-radius:6px;padding:6px 10px;outline:none" oninput="markSalaryDirty()"> %</div>
+        <div class="setting-row"><div class="setting-info"><div class="setting-label">Special Allowance</div><div class="setting-desc">Discretionary allowance</div></div><input type="number" id="saPercent" value="0" min="0" max="100" style="width:80px;font-family:var(--fm);text-align:right;background:var(--paper);border:1px solid var(--paper3);border-radius:6px;padding:6px 10px;outline:none" oninput="markSalaryDirty()"> %</div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">Deductions</div>
+        <div class="setting-row"><div class="setting-info"><div class="setting-label">Employee PF Contribution</div><div class="setting-desc">Provident Fund deducted from employee salary</div></div><input type="number" id="pfPercent" value="0" min="0" max="100" style="width:80px;font-family:var(--fm);text-align:right;background:var(--paper);border:1px solid var(--paper3);border-radius:6px;padding:6px 10px;outline:none" oninput="markSalaryDirty()"> %</div>
+        <div class="setting-row"><div class="setting-info"><div class="setting-label">Professional Tax (PT)</div><div class="setting-desc">Monthly professional tax deduction</div></div>₹<input type="number" id="ptAmount" value="0" min="0" style="width:80px;font-family:var(--fm);text-align:right;background:var(--paper);border:1px solid var(--paper3);border-radius:6px;padding:6px 10px;outline:none" oninput="markSalaryDirty()"></div>
+        <div class="setting-row"><div class="setting-info"><div class="setting-label">TDS / Income Tax Rate</div><div class="setting-desc">Flat monthly TDS rate on gross</div></div><input type="number" id="tdsPercent" value="0" min="0" max="40" style="width:80px;font-family:var(--fm);text-align:right;background:var(--paper);border:1px solid var(--paper3);border-radius:6px;padding:6px 10px;outline:none" oninput="markSalaryDirty()"> %</div>
+        <div class="setting-row"><div class="setting-info"><div class="setting-label">ESI Contribution</div><div class="setting-desc">Employee State Insurance (applies to salary ≤ ₹21,000)</div></div><input type="number" id="esiPercent" value="0" min="0" max="10" step="0.01" style="width:80px;font-family:var(--fm);text-align:right;background:var(--paper);border:1px solid var(--paper3);border-radius:6px;padding:6px 10px;outline:none" oninput="markSalaryDirty()"> %</div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">Payslip Automation</div>
+        <div class="setting-row"><div class="setting-info"><div class="setting-label">Auto-generate on 1st of each month</div><div class="setting-desc">Payslips will be automatically created at midnight on the 1st</div></div><div class="toggle-wrap"><label><input type="checkbox" id="autoGenToggle" checked onchange="markSalaryDirty()"></label></div></div>
+        <div class="setting-row"><div class="setting-info"><div class="setting-label">Include LOP (Loss of Pay) calculation</div><div class="setting-desc">Deduct proportionally for absent days</div></div><div class="toggle-wrap"><label><input type="checkbox" id="lopToggle" onchange="markSalaryDirty()"></label></div></div>
+      </div>
+      <!-- Salary Save Footer -->
+      <div style="display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:6px;padding:14px 0 4px">
+        <span id="salaryUnsavedFooter" style="display:none;font-size:11px;color:var(--mu);font-style:italic">You have unsaved changes</span>
+        <button class="top-btn ghost" onclick="resetSalaryConfig()" id="salaryResetBtnFooter" style="display:none">↩ Reset to saved</button>
+        <button class="top-btn gold" onclick="saveSalaryConfig()">💾 Save Structure</button>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <div class="sec-head"><div class="sec-title">Company Settings</div></div>
+      <div class="settings-section">
+        <div class="settings-section-title">ection</div>
+        <div class="setting-row">
+          <div class="setting-info"><div class="setting-label">Supabase Project URL</div><div class="setting-desc">Your project URL from Settings → API</div></div>
+          <input id="sbUrl" placeholder="https://xxxx.supabase.co" style="width:260px;font-family:var(--fm);font-size:11px;background:var(--paper);border:1px solid var(--paper3);border-radius:6px;padding:6px 10px;outline:none" oninput="saveSbConfig()">
+        </div>
+        <div class="setting-row">
+          <div class="setting-info"><div class="setting-label">Supabase Anon Key</div><div class="setting-desc">Your anon/public key (not the service_role key)</div></div>
+          <input id="sbKey" type="password" placeholder="eyJhbGci…" style="width:260px;font-family:var(--fm);font-size:11px;background:var(--paper);border:1px solid var(--paper3);border-radius:6px;padding:6px 10px;outline:none" oninput="saveSbConfig()">
+        </div>
+        <div class="setting-row" style="border-bottom:none">
+          <div class="setting-info"><div class="setting-label">Connection</div><div class="setting-desc" id="sbStatus">Not connected — enter credentials above</div></div>
+          <button class="top-btn gold" onclick="initSupabase()">Connect & Load</button>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">Company Information</div>
+        <div class="form-grid" style="margin-top:4px">
+          <div class="field span2"><label>Company Name</label><input id="companyName" value="Samtulana Antarjala Gathaka Pvt Ltd" oninput="saveSettings()"></div>
+          <div class="field"><label>Company PAN</label><input id="companyPAN" placeholder="AABCS1429B" oninput="saveSettings()"></div>
+          <div class="field"><label>Company TAN</label><input id="companyTAN" placeholder="PNEA12345E" oninput="saveSettings()"></div>
+          <div class="field"><label>EPFO Registration No.</label><input id="epfoReg" placeholder="AP/HYD/1234567" oninput="saveSettings()"></div>
+          <div class="field"><label>ESI Registration No.</label><input id="esiReg" placeholder="51-000-000" oninput="saveSettings()"></div>
+          <div class="field span2"><label>Registered Address</label><textarea id="companyAddress" rows="2" oninput="saveSettings()">Hyderabad, Andhra Pradesh, India</textarea></div>
+        </div>
+      </div>
+      <div class="settings-section">
+        <div class="settings-section-title">Payroll Period</div>
+        <div class="form-grid">
+          <div class="field"><label>Pay Period Start</label><select id="payStart" oninput="saveSettings()"><option value="1">1st of month</option><option value="26">26th of prev month</option></select></div>
+                    <div class="field"><label>Financial Year Start</label><select id="fyStart" oninput="saveSettings()"><option value="3">April (Indian FY)</option><option value="0">January</option></select></div>
+          <div class="field"><label>Currency</label><select id="currency" oninput="saveSettings()"><option value="₹">₹ INR</option><option value="$">$ USD</option></select></div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:4px">
+        <button class="top-btn gold" onclick="saveSettings();toast('Settings saved','ok')">Save Settings</button>
+      </div>
+    </div>
+
+
+    <!-- ADMIN PANEL -->
+    <div class="page" id="page-admin">
+      <div class="kpi-strip">
+        <div class="kpi-card k-gold"><div class="kpi-label">Admin Users</div><div class="kpi-value" id="adminKpiUsers">1</div><div class="kpi-sub">Active admins</div></div>
+        <div class="kpi-card k-teal"><div class="kpi-label">Last Login</div><div class="kpi-value" style="font-size:14px" id="adminKpiLastLogin">—</div><div class="kpi-sub">Current session</div></div>
+        <div class="kpi-card k-ink"><div class="kpi-label">Login Method</div><div class="kpi-value" style="font-size:14px">OTP</div><div class="kpi-sub">Email verification</div></div>
+        <div class="kpi-card k-red"><div class="kpi-label">Session</div><div class="kpi-value" style="font-size:14px" id="adminKpiSession">Active</div><div class="kpi-sub" id="adminKpiSessionSub">Authenticated</div></div>
+      </div>
+
+      <div class="admin-grid">
+        <!-- Admin Users Management -->
+        <div class="admin-card ac-gold" style="grid-column:1/-1">
+          <div class="admin-card-title">Admin Users</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+            <span style="font-size:12px;color:var(--mu)">Manage who has admin access to this system</span>
+            <button class="top-btn gold" style="font-size:11px;padding:6px 14px" onclick="openAddAdmin()">+ Add Admin</button>
+          </div>
+          <div id="adminUsersList"></div>
+        </div>
+
+        <!-- Audit Log -->
+        <div class="admin-card ac-teal" style="grid-column:1/-1">
+          <div class="admin-card-title">Login Audit Log</div>
+          <div id="auditLogList"></div>
+        </div>
+
+        <!-- Permissions -->
+        <div class="admin-card ac-ink" style="grid-column:1/-1">
+          <div class="admin-card-title">System Permissions</div>
+          <div class="perm-row"><div><div class="perm-label">Employee Management</div><div class="perm-desc">Add, edit and delete employee records</div></div><span class="badge badge-green">Enabled</span></div>
+          <div class="perm-row"><div><div class="perm-label">Payroll Processing</div><div class="perm-desc">Run and issue payslips</div></div><span class="badge badge-green">Enabled</span></div>
+          <div class="perm-row"><div><div class="perm-label">Payslip Download</div><div class="perm-desc">Print and download payslips</div></div><span class="badge badge-green">Enabled</span></div>
+          <div class="perm-row"><div><div class="perm-label">Settings Access</div><div class="perm-desc">Modify company and system settings</div></div><span class="badge badge-green">Enabled</span></div>
+          <div class="perm-row"><div><div class="perm-label">Data Export</div><div class="perm-desc">Export employee and payroll data</div></div><span class="badge badge-gold">Admin Only</span></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- /content -->
+</main>
+</div><!-- /layout -->
+
+<!-- MODALS -->
+<div class="modal-overlay" id="empModal">
+  <div class="modal" style="max-width:640px">
+    <div class="modal-head">
+      <div class="modal-title" id="empModalTitle">Add Employee</div>
+      <button class="modal-close" onclick="closeModal('empModal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="empEditId">
+      <div class="form-grid">
+        <div class="field"><label>First Name <span style="color:var(--red)">*</span></label><input id="empFirstName" placeholder="Ravi"></div>
+        <div class="field"><label>Last Name <span style="color:var(--mu2);text-transform:none;letter-spacing:0">(optional)</span></label><input id="empLastName" placeholder="Kumar"></div>
+        <div class="field"><label>Employee ID <span style="color:var(--mu2);text-transform:none;letter-spacing:0">(auto if blank)</span></label><input id="empId" placeholder="SAG-001" style="font-family:var(--fm)"></div>
+        <div class="field"><label>Designation <span style="color:var(--red)">*</span></label><input id="empDesig" placeholder="Software Engineer"></div>
+        <div class="field"><label>Department</label>
+          <select id="empDept"><option>Engineering</option><option>Sales</option><option>Marketing</option><option>HR</option><option>Finance</option><option>Operations</option><option>Design</option><option>Legal</option></select>
+        </div>
+        <div class="field"><label>Join Date <span style="color:var(--mu2);text-transform:none;letter-spacing:0">(optional)</span></label><input id="empJoin" type="date"></div>
+        <div class="field"><label>Basic Salary (₹) <span style="color:var(--mu2);text-transform:none;letter-spacing:0">(optional)</span></label><input id="empBasic" type="number" placeholder="40000" oninput="updateSalaryPreview()"></div>
+        <div class="field"><label>PAN Number <span style="color:var(--mu2);text-transform:none;letter-spacing:0">(optional)</span></label><input id="empPAN" placeholder="ABCDE1234F" style="font-family:var(--fm)"></div>
+        <div class="field"><label>Account No. <span style="color:var(--mu2);text-transform:none;letter-spacing:0">(optional)</span></label><input id="empAcc" placeholder="XXXXXXXXXX" style="font-family:var(--fm)"></div>
+        <div class="field"><label>IFSC Code <span style="color:var(--mu2);text-transform:none;letter-spacing:0">(optional)</span></label><input id="empIFSC" placeholder="SBIN0001234" style="font-family:var(--fm)"></div>
+        <div class="field"><label>Bank Name <span style="color:var(--mu2);text-transform:none;letter-spacing:0">(optional)</span></label><input id="empBank" placeholder="State Bank of India"></div>
+        <div class="field"><label>Status</label><select id="empStatus"><option value="Active">Active</option><option value="On Leave">On Leave</option><option value="Inactive">Inactive</option></select></div>
+      </div>
+      <div style="background:var(--paper);border:1px solid var(--paper3);border-radius:8px;padding:12px 14px;margin-top:4px">
+        <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);font-weight:600;margin-bottom:8px">Salary Preview</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:12px" id="salaryPreview">
+          <div><div style="color:var(--mu);font-size:10px">Gross</div><div style="font-family:var(--fm);font-weight:500">—</div></div>
+          <div><div style="color:var(--mu);font-size:10px">Deductions</div><div style="font-family:var(--fm);font-weight:500">—</div></div>
+          <div><div style="color:var(--mu);font-size:10px">Net Pay</div><div style="font-family:var(--fm);font-weight:500;color:var(--green)">—</div></div>
+          <div><div style="color:var(--mu);font-size:10px">PF (Emp)</div><div style="font-family:var(--fm);font-weight:500">—</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="top-btn ghost" onclick="closeModal('empModal')">Cancel</button>
+      <button class="top-btn gold" id="saveEmpBtn" onclick="saveEmployee()">Save Employee</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="payslipModal">
+  <div class="modal" style="max-width:700px">
+    <div class="modal-head no-print">
+      <div class="modal-title">Payslip</div>
+      <div style="display:flex;gap:8px">
+        <button class="top-btn ghost" onclick="window.print()">🖨 Print</button>
+        <button class="top-btn primary" onclick="downloadPayslip()">⬇ Download PDF</button>
+        <button class="modal-close" onclick="closeModal('payslipModal')">✕</button>
+      </div>
+    </div>
+    <div class="modal-body" id="payslipContent" style="padding:0"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// ╔══════════════════════════════════════════════════╗
+// ║  SUPABASE CONFIG                                 ║
+// ║  Either enter via Settings page UI, or paste    ║
+// ║  your values directly here:                     ║
+// ╚══════════════════════════════════════════════════╝
+// SQL to run once in Supabase SQL Editor:
+//
+// create table if not exists sag_employees (
+//   id text primary key,
+//   fname text, lname text, desig text, dept text,
+//   join_date text, basic numeric, pan text,
+//   acc text, ifsc text, bank text, status text,
+//   created_at timestamptz default now()
+// );
+// create table if not exists sag_payslips (
+//   id uuid default gen_random_uuid() primary key,
+//   emp_id text references sag_employees(id) on delete cascade,
+//   month text, gross numeric, deductions numeric,
+//   net_pay numeric, issued_on text, breakdown jsonb,
+//   created_at timestamptz default now(),
+//   unique(emp_id, month)
+// );
+// create table if not exists sag_settings (
+//   key text primary key, value jsonb
+// );
+// alter table sag_employees enable row level security;
+// alter table sag_payslips enable row level security;
+// alter table sag_settings enable row level security;
+// create policy "anon_all" on sag_employees for all to anon using (true) with check (true);
+// create policy "anon_all" on sag_payslips for all to anon using (true) with check (true);
+// create policy "anon_all" on sag_settings for all to anon using (true) with check (true);
+// ═══════════════════════════════════════════════════════
+
+var SB_URL = 'https://krjqtxunsxtxgssczfqi.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtyanF0eHVuc3h0eGdzc2N6ZnFpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwNzUwOTcsImV4cCI6MjA5MTY1MTA5N30.HP6PQktruRGPVv75YTFagMeshnpxM0zhFJoP-8uDxoE';
+
+// ── SUPABASE REST HELPER ─────────────────────────────
+async function sb(path, opts) {
+  if (!SB_URL || !SB_KEY) throw new Error('Supabase not configured');
+  var headers = {
+    'Content-Type': 'application/json',
+    'apikey': SB_KEY,
+    'Authorization': 'Bearer ' + SB_KEY
+  };
+  if (opts && (opts.method === 'POST' || opts.method === 'PATCH')) {
+    headers['Prefer'] = 'return=representation';
+  }
+  var res = await fetch(SB_URL + '/rest/v1/' + path, Object.assign({ headers: headers }, opts));
+  if (!res.ok) {
+    var t = await res.text();
+    throw new Error(t);
+  }
+  var ct = res.headers.get('content-type') || '';
+  return ct.includes('json') ? res.json() : null;
+}
+
+// ── STATE ────────────────────────────────────────────
+var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+// Dynamic: generates "Month YYYY" labels from 2020 to 2030
+function buildMonthsLabel(year) {
+  return MONTH_NAMES.map(function(m){ return m + ' ' + year; });
+}
+var currentYear  = new Date().getFullYear();
+var currentMonth = new Date().getMonth(); // 0-based
+// "January 2025" style label for any month/year
+function monthLabel(monthIdx, year) { return MONTH_NAMES[monthIdx] + ' ' + year; }
+// For backward compat where MONTHS_LABEL[n] was used (now dynamic)
+var MONTHS_LABEL = buildMonthsLabel(currentYear);
+var settings = {
+  hraPercent:0,taPercent:0,saPercent:0,
+  pfPercent:0,ptAmount:0,tdsPercent:0,esiPercent:0,
+  autoGen:true,lop:false,
+  payDate:1,
+  companyName:'Samtulana Antarjala Gathaka Pvt Ltd',
+  companyPAN:'',companyTAN:'',epfoReg:'',esiReg:'',
+  companyAddress:'Hyderabad, Andhra Pradesh, India'
+};
+// ── PAY DATE HELPER ──────────────────────────────────
+// Returns the configured pay date in the month AFTER the pay period.
+// e.g. Feb pay period → pay date = 1 Mar (or 5 Mar, etc.)
+function getPayDate(monthIndex, year) {
+  var day = parseInt(settings.payDate) || 1;
+  // next month after the pay period month
+  var payMonth = monthIndex + 1; // 0-based month of next month
+  var payYear  = year;
+  if (payMonth > 11) { payMonth = 0; payYear++; }
+  return new Date(payYear, payMonth, day).toLocaleDateString('en-IN');
+}
+
+var employees = [];
+var payslips  = [];
+var _editEmpId = null;   // store ID string, NOT array index
+var _confirmCb = null;
+var _sbReady   = false;
+
+// ── SAFE LOCALSTORAGE ────────────────────────────────
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+
+// ── SYNC BAR ─────────────────────────────────────────
+function showSync(state, msg, autohide) {
+  var bar = document.getElementById('syncBar');
+  var dot = document.getElementById('sdot');
+  bar.className = 'show ' + state;
+  document.getElementById('syncMsg').textContent = msg;
+  dot.className = 'sdot' + (state === 'syncing' ? ' pulse' : '');
+  if (autohide) setTimeout(function(){ bar.classList.remove('show'); }, 2500);
+}
+function hideSync(){ document.getElementById('syncBar').classList.remove('show'); }
+
+// ── INIT ─────────────────────────────────────────────
+window.onload = function() {
+  loadAdminUsers();
+  loadAuditLog();
+  // Check for existing valid session
+  var sess = lsGet('sag_session');
+  if (sess) {
+    try {
+      var s = JSON.parse(sess);
+      if (s && s.email) {
+        _otpEmail = s.email;
+        _currentAdmin = _adminUsers.find(function(a){ return a.email.toLowerCase() === s.email.toLowerCase(); });
+        var initials = (s.name||'AD').split(' ').map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase();
+        document.getElementById('sidebarAvatar').textContent = initials;
+        document.getElementById('sidebarName').textContent = s.name || s.email;
+        document.getElementById('sidebarEmail').textContent = s.email;
+        document.getElementById('adminKpiLastLogin').textContent = s.time ? (s.time.split(',')[1]||s.time).trim() : '—';
+        document.getElementById('adminKpiSessionSub').textContent = s.email;
+        document.getElementById('loginScreen').classList.add('hidden');
+        appInit();
+        return;
+      }
+    } catch(e) {}
+  }
+  // No valid session — show login
+};
+
+function saveSbConfig() {
+  SB_URL = document.getElementById('sbUrl').value.trim().replace(/\/$/, '');
+  SB_KEY = document.getElementById('sbKey').value.trim();
+  lsSet('sag_sb_url', SB_URL);
+  lsSet('sag_sb_key', SB_KEY);
+}
+
+async function initSupabase() {
+  saveSbConfig();
+  if (!SB_URL || !SB_KEY) { toast('Enter Supabase URL and Key first', 'err'); return; }
+  showSync('syncing', 'Connecting to Supabase…');
+  document.getElementById('sbStatus').textContent = 'Connecting…';
+  try {
+    await loadFromCloud();
+    _sbReady = true;
+    showSync('ok', '● Connected to Supabase — data synced', true);
+    document.getElementById('sbStatus').textContent = '✓ Connected — ' + employees.length + ' employees, ' + payslips.length + ' payslips loaded';
+    renderAll();
+    toast('Connected to Supabase', 'ok');
+  } catch(e) {
+    _sbReady = false;
+    showSync('err', '⚠ Connection failed — ' + (e.message || 'check credentials'));
+    document.getElementById('sbStatus').textContent = '✗ Failed: ' + (e.message || 'check URL and key');
+    toast('Connection failed: ' + (e.message || 'check credentials'), 'err');
+    console.error(e);
+  }
+}
+
+// ── CLOUD LOAD ───────────────────────────────────────
+async function loadFromCloud() {
+  var rows = await sb('sag_employees?order=created_at.asc', { method: 'GET' });
+  employees = (rows || []).map(function(r) {
+    return { id:r.id, fname:r.fname, lname:r.lname, desig:r.desig, dept:r.dept,
+             join:r.join_date, basic:parseFloat(r.basic), pan:r.pan||'',
+             acc:r.acc||'', ifsc:r.ifsc||'', bank:r.bank||'', status:r.status };
+  });
+  var prows = await sb('sag_payslips?order=created_at.asc', { method: 'GET' });
+  payslips = (prows || []).map(function(r) {
+    return { empId:r.emp_id, month:r.month, gross:parseFloat(r.gross),
+             deductions:parseFloat(r.deductions), netPay:parseFloat(r.net_pay),
+             issuedOn:r.issued_on, breakdown:r.breakdown };
+  });
+  // Load settings
+  var srows = await sb('sag_settings?key=eq.main', { method: 'GET' });
+  if (srows && srows[0]) {
+    settings = Object.assign(settings, srows[0].value);
+    applySettingsToUI();
+    lsSet('sag_settings', JSON.stringify(settings));
+  }
+}
+
+// ── CLOUD SAVE ───────────────────────────────────────
+async function upsertEmployee(emp) {
+  var body = { id:emp.id, fname:emp.fname, lname:emp.lname, desig:emp.desig, dept:emp.dept,
+               join_date:emp.join, basic:emp.basic, pan:emp.pan, acc:emp.acc,
+               ifsc:emp.ifsc, bank:emp.bank, status:emp.status };
+  await sb('sag_employees?id=eq.'+encodeURIComponent(emp.id), {
+    method:'DELETE'  // delete-then-insert acts as upsert for text PK
+  });
+  await sb('sag_employees', { method:'POST', body:JSON.stringify(body) });
+}
+
+async function deleteEmployeeCloud(empId) {
+  await sb('sag_employees?id=eq.'+encodeURIComponent(empId), { method:'DELETE' });
+}
+
+async function upsertPayslip(ps) {
+  var body = { emp_id:ps.empId, month:ps.month, gross:ps.gross, deductions:ps.deductions,
+               net_pay:ps.netPay, issued_on:ps.issuedOn, breakdown:ps.breakdown };
+  // Use on-conflict upsert
+  await sb('sag_payslips', {
+    method:'POST',
+    body: JSON.stringify(body),
+    headers: {
+      'Content-Type':'application/json',
+      'apikey': SB_KEY,
+      'Authorization':'Bearer '+SB_KEY,
+      'Prefer':'resolution=merge-duplicates,return=representation'
+    }
+  }).catch(function(){
+    // If upsert header not supported, fallback: delete then insert
+    return sb('sag_payslips?emp_id=eq.'+encodeURIComponent(ps.empId)+'&month=eq.'+encodeURIComponent(ps.month), {method:'DELETE'})
+      .then(function(){ return sb('sag_payslips',{method:'POST',body:JSON.stringify(body)}); });
+  });
+}
+
+async function saveSettingsCloud() {
+  try {
+    await sb('sag_settings?key=eq.main', { method:'DELETE' });
+    await sb('sag_settings', { method:'POST', body:JSON.stringify({key:'main', value:settings}) });
+  } catch(e) { console.warn('Settings cloud save failed', e); }
+}
+
+// ── SALARY CALC ──────────────────────────────────────
+function calcBreakdown(basic) {
+  var s = settings;
+  var hra = Math.round(basic * s.hraPercent / 100);
+  var ta  = Math.round(basic * s.taPercent  / 100);
+  var sa  = Math.round(basic * s.saPercent  / 100);
+  var gross = basic + hra + ta + sa;
+  var pf  = Math.round(basic * s.pfPercent  / 100);
+  var pt  = s.ptAmount;
+  var tds = Math.round(gross * s.tdsPercent / 100);
+  var esi = basic <= 21000 ? Math.round(gross * s.esiPercent / 100) : 0;
+  var totalDeductions = pf + pt + tds + esi;
+  var net = gross - totalDeductions;
+  return { basic,hra,ta,sa,gross,pf,pt,tds,esi,totalDeductions,net };
+}
+
+function fmt(n)  { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+function fmtN(n) { return Math.round(n).toLocaleString('en-IN'); }
+
+// ── DEMO SEED ────────────────────────────────────────
+function autoSeedPayslips() {
+  if (payslips.length > 0) return;
+  [0,1,2,3].forEach(function(mi) {
+    employees.forEach(function(emp) {
+      var b = calcBreakdown(emp.basic);
+      payslips.push({ empId:emp.id, month:MONTHS_LABEL[mi], gross:b.gross,
+        deductions:b.totalDeductions, netPay:b.net,
+        issuedOn:'', breakdown:b });
+    });
+  });
+}
+
+// ── NAV ──────────────────────────────────────────────
+var pageTitles = { dashboard:'Dashboard',employees:'Employees',payroll:'Run Payroll',payslips:'Payslip Archive',salary:'Salary Structure',settings:'Settings' };
+
+function showPage(name, el) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  document.getElementById('page-'+name).classList.add('active');
+  if (el) el.classList.add('active');
+  document.getElementById('pageTitle').textContent = pageTitles[name] || name;
+  if (name === 'dashboard') renderDashboard();
+  if (name === 'employees') renderEmployees();
+  if (name === 'payroll')   renderPayrollPage();
+  if (name === 'payslips')  renderPayslips();
+}
+
+function renderAll() { renderDashboard(); }
+
+function initYearSelect() {
+  var sel = document.getElementById('globalYear');
+  if (!sel) return;
+  sel.innerHTML = '';
+  for (var y = 2020; y <= 2030; y++) {
+    var opt = document.createElement('option');
+    opt.value = y; opt.textContent = y;
+    if (y === currentYear) opt.selected = true;
+    sel.appendChild(opt);
+  }
+  document.getElementById('globalMonth').value = currentMonth;
+  // Update run payroll label
+  MONTHS_LABEL = buildMonthsLabel(currentYear);
+  var rl = document.getElementById('runMonthLabel');
+  if (rl) rl.textContent = MONTHS_LABEL[currentMonth];
+}
+
+function buildPayslipMonthFilter() {
+  var sel = document.getElementById('payslipMonthFilter');
+  if (!sel) return;
+  var cur = sel.value;
+  sel.innerHTML = '<option value="">All Months</option>';
+  // Collect all years from payslips + current year
+  var years = {};
+  payslips.forEach(function(p){ var parts = p.month.split(' '); if(parts.length===2) years[parts[1]]=1; });
+  years[currentYear] = 1;
+  Object.keys(years).sort().forEach(function(yr){
+    MONTH_NAMES.forEach(function(mn){
+      var opt = document.createElement('option');
+      opt.value = mn+' '+yr; opt.textContent = mn+' '+yr;
+      if (opt.value === cur) opt.selected = true;
+      sel.appendChild(opt);
+    });
+  });
+}
+
+function onMonthChange() {
+  currentMonth = parseInt(document.getElementById('globalMonth').value);
+  currentYear  = parseInt(document.getElementById('globalYear').value);
+  MONTHS_LABEL = buildMonthsLabel(currentYear);
+  document.getElementById('runMonthLabel').textContent = MONTHS_LABEL[currentMonth];
+  buildPayslipMonthFilter();
+  renderDashboard();
+}
+
+// ── DASHBOARD ────────────────────────────────────────
+function renderDashboard() {
+  var m = MONTHS_LABEL[currentMonth];
+  var mps = payslips.filter(function(p){ return p.month === m; });
+  var totalGross = mps.reduce(function(s,p){ return s+p.gross; }, 0);
+  var totalDed   = mps.reduce(function(s,p){ return s+p.deductions; }, 0);
+  var activeEmp  = employees.filter(function(e){ return e.status === 'Active'; });
+
+  document.getElementById('kpiPayroll').textContent    = fmt(totalGross);
+  document.getElementById('kpiPayrollSub').textContent = m;
+  document.getElementById('kpiEmpCount').textContent   = activeEmp.length;
+  document.getElementById('kpiPayslips').textContent   = mps.length;
+  document.getElementById('kpiPayslipsSub').textContent = m;
+  document.getElementById('kpiDeductions').textContent = fmt(totalDed);
+
+  var depts = {};
+  employees.forEach(function(e) {
+    if (!depts[e.dept]) depts[e.dept] = 0;
+    var ps = payslips.find(function(p){ return p.empId===e.id && p.month===m; });
+    if (ps) depts[e.dept] += ps.gross;
+  });
+  var dk = Object.keys(depts).filter(function(d){ return depts[d]>0; });
+  var mx = dk.length ? Math.max.apply(null, dk.map(function(d){ return depts[d]; })) : 1;
+  document.getElementById('deptBars').innerHTML = dk.length
+    ? dk.map(function(d){ return '<div class="dept-bar-row"><div class="dept-bar-label">'+d+'</div><div class="dept-bar-track"><div class="dept-bar-fill" style="width:'+Math.round(depts[d]/mx*100)+'%"></div></div><div class="dept-bar-val">'+fmt(depts[d])+'</div></div>'; }).join('')
+    : '<div class="empty-state"><div class="es-icon">📊</div><p>No payroll data for '+m+'</p></div>';
+
+  var acts = [];
+  payslips.slice(-5).reverse().forEach(function(p) {
+    var e = employees.find(function(emp){ return emp.id===p.empId; });
+    if (e) acts.push({text:'Payslip issued to '+e.fname+' '+e.lname+' ('+p.month+')',time:p.month,color:'green'});
+  });
+  if (!acts.length) acts.push({text:'No recent activity',time:'—',color:'gold'});
+  document.getElementById('activityList').innerHTML = acts.map(function(a){
+    return '<div class="activity-item"><div class="activity-dot '+a.color+'"></div><div class="activity-text">'+a.text+'</div><div class="activity-time">'+a.time+'</div></div>';
+  }).join('');
+
+  var rec = payslips.slice(-5).reverse();
+  document.getElementById('recentPayslipsBody').innerHTML = rec.length
+    ? rec.map(function(p){
+        var e = employees.find(function(emp){ return emp.id===p.empId; })||{fname:'?',lname:'',dept:'?'};
+        return '<tr><td><strong>'+e.fname+' '+e.lname+'</strong></td><td><span class="badge badge-ink">'+e.dept+'</span></td><td style="font-family:var(--fm);font-size:11px">'+p.month+'</td><td class="r">'+fmt(p.gross)+'</td><td class="r" style="color:var(--red)">'+fmt(p.deductions)+'</td><td class="r" style="color:var(--green);font-weight:600">'+fmt(p.netPay)+'</td><td><span class="badge badge-green">Issued</span></td><td><button class="icon-btn" onclick="viewPayslip(\''+p.empId+'\',\''+p.month+'\')">👁</button></td></tr>';
+      }).join('')
+    : '<tr><td colspan="8"><div class="empty-state"><div class="es-icon">📄</div><p>No payslips yet</p></div></td></tr>';
+}
+
+// ── EMPLOYEES ────────────────────────────────────────
+function renderEmployees() {
+  var q = (document.getElementById('empSearch').value || '').toLowerCase();
+  var filtered = employees.filter(function(e){
+    return !q || (e.fname+' '+e.lname+e.id+e.dept+e.desig).toLowerCase().includes(q);
+  });
+  document.getElementById('empCountLabel').textContent = employees.length + ' employees';
+  document.getElementById('empBody').innerHTML = filtered.length
+    ? filtered.map(function(e) {
+        var sc = e.status==='Active'?'badge-green':e.status==='On Leave'?'badge-gold':'badge-red';
+        // Pass e.id (string), never an array index
+        return '<tr>'+
+          '<td style="font-family:var(--fm);font-size:11px;color:var(--mu)">'+e.id+'</td>'+
+          '<td><strong>'+e.fname+' '+(e.lname||'')+'</strong></td>'+
+          '<td class="mu">'+e.desig+'</td>'+
+          '<td><span class="badge badge-ink">'+e.dept+'</span></td>'+
+          '<td style="font-family:var(--fm);font-size:11px;color:var(--mu)">'+(e.join||'—')+'</td>'+
+          '<td class="r">'+fmt(e.basic)+'</td>'+
+          '<td><span class="badge '+sc+'">'+e.status+'</span></td>'+
+          '<td>'+
+            '<button class="icon-btn" title="Edit" onclick="editEmployeeById(\''+e.id+'\')">✏</button>'+
+            '<button class="icon-btn danger" title="Delete" onclick="deleteEmployeeById(\''+e.id+'\')">🗑</button>'+
+          '</td>'+
+        '</tr>';
+      }).join('')
+    : '<tr><td colspan="8"><div class="empty-state"><div class="es-icon">👥</div><p>No employees found</p></div></td></tr>';
+}
+
+function openAddEmployee() {
+  _editEmpId = null;
+  document.getElementById('empModalTitle').textContent = 'Add Employee';
+  document.getElementById('empEditId').value = '';
+  ['empFirstName','empLastName','empId','empDesig','empAcc','empIFSC','empBank','empPAN'].forEach(function(id){ document.getElementById(id).value=''; });
+  document.getElementById('empDept').value   = 'Engineering';
+  document.getElementById('empStatus').value = 'Active';
+  document.getElementById('empJoin').value   = new Date().toISOString().split('T')[0];
+  document.getElementById('empBasic').value  = '';
+  document.getElementById('empId').disabled  = false;
+  updateSalaryPreview();
+  openModal('empModal');
+}
+
+function editEmployeeById(empId) {
+  var e = employees.find(function(x){ return x.id === empId; });
+  if (!e) { toast('Employee not found', 'err'); return; }
+  _editEmpId = empId;
+  document.getElementById('empModalTitle').textContent    = 'Edit Employee';
+  document.getElementById('empFirstName').value  = e.fname;
+  document.getElementById('empLastName').value   = e.lname;
+  document.getElementById('empId').value         = e.id;
+  document.getElementById('empId').disabled      = true; // cannot change ID on edit
+  document.getElementById('empDesig').value      = e.desig;
+  document.getElementById('empDept').value       = e.dept;
+  document.getElementById('empJoin').value       = e.join;
+  document.getElementById('empBasic').value      = e.basic;
+  document.getElementById('empPAN').value        = e.pan  || '';
+  document.getElementById('empAcc').value        = e.acc  || '';
+  document.getElementById('empIFSC').value       = e.ifsc || '';
+  document.getElementById('empBank').value       = e.bank || '';
+  document.getElementById('empStatus').value     = e.status;
+  updateSalaryPreview();
+  openModal('empModal');
+}
+
+function generateEmployeeId() {
+  var max = 0;
+  employees.forEach(function(x){
+    var m = /^SAG-(\d+)$/i.exec(x.id);
+    if (m) max = Math.max(max, parseInt(m[1], 10));
+  });
+  var n = max + 1, id;
+  do { id = 'SAG-' + String(n).padStart(3, '0'); n++; } while (employees.some(function(x){ return x.id === id; }));
+  return id;
+}
+
+async function saveEmployee() {
+  var fname = document.getElementById('empFirstName').value.trim();
+  var lname = document.getElementById('empLastName').value.trim();
+  var desigVal = document.getElementById('empDesig').value.trim();
+  if (!fname) { toast('First name is required', 'err'); return; }
+  if (!desigVal) { toast('Designation is required', 'err'); return; }
+  var id    = _editEmpId || document.getElementById('empId').value.trim();
+  if (!id) id = generateEmployeeId();
+  if (!_editEmpId && employees.some(function(x){ return x.id === id; })) { toast('Employee ID "' + id + '" already exists', 'err'); return; }
+  var basic = parseFloat(document.getElementById('empBasic').value);
+  if (isNaN(basic) || basic < 0) basic = 0;
+
+  var emp = {
+    id, fname, lname,
+    desig:   desigVal,
+    dept:    document.getElementById('empDept').value,
+    join:    document.getElementById('empJoin').value,
+    basic,
+    pan:     document.getElementById('empPAN').value,
+    acc:     document.getElementById('empAcc').value,
+    ifsc:    document.getElementById('empIFSC').value,
+    bank:    document.getElementById('empBank').value,
+    status:  document.getElementById('empStatus').value,
+  };
+
+  var btn = document.getElementById('saveEmpBtn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+
+  if (_sbReady) {
+    try {
+      showSync('syncing', 'Saving employee…');
+      await upsertEmployee(emp);
+      showSync('ok', '✓ Saved to Supabase', true);
+    } catch(e) {
+      toast('Cloud save failed: ' + e.message, 'err');
+      console.error(e);
+      btn.disabled = false; btn.textContent = 'Save Employee';
+      return;
+    }
+  }
+
+  // Update local array
+  var idx = employees.findIndex(function(x){ return x.id === id; });
+  if (idx !== -1) { employees[idx] = emp; toast('Employee updated', 'ok'); }
+  else            { employees.push(emp); toast('Employee added', 'ok'); }
+
+  btn.disabled = false; btn.textContent = 'Save Employee';
+  closeModal('empModal');
+  renderEmployees();
+  renderDashboard();
+}
+
+// ═══ THE KEY FIX: deleteEmployeeById — ID-based, never index-based ═══
+function deleteEmployeeById(empId) {
+  var e = employees.find(function(x){ return x.id === empId; });
+  if (!e) { toast('Employee not found', 'err'); return; }
+  var name = e.fname + ' ' + e.lname;
+
+  // Show confirm bar (it is now OUTSIDE the .page div — always visible)
+  confirmAction('Delete ' + name + '? This will also remove all their payslips.', async function() {
+    if (_sbReady) {
+      showSync('syncing', 'Deleting…');
+      try {
+        await deleteEmployeeCloud(empId);
+        // payslips cascade-deleted by DB foreign key
+        showSync('ok', '✓ Deleted from Supabase', true);
+      } catch(e) {
+        toast('Cloud delete failed: ' + e.message, 'err');
+        showSync('err', '⚠ Delete failed');
+        console.error(e);
+        return;
+      }
+    }
+    // Remove from local arrays
+    employees = employees.filter(function(x){ return x.id !== empId; });
+    payslips  = payslips.filter(function(p){ return p.empId !== empId; });
+    renderEmployees();
+    renderDashboard();
+    toast('Employee deleted', 'ok');
+  });
+}
+
+function updateSalaryPreview() {
+  var basic = parseFloat(document.getElementById('empBasic').value) || 0;
+  var sp = document.getElementById('salaryPreview');
+  if (!basic) {
+    sp.innerHTML = '<div><div style="color:var(--mu);font-size:10px">Gross</div><div style="font-family:var(--fm);font-weight:500">—</div></div><div><div style="color:var(--mu);font-size:10px">Deductions</div><div style="font-family:var(--fm);font-weight:500">—</div></div><div><div style="color:var(--mu);font-size:10px">Net Pay</div><div style="font-family:var(--fm);font-weight:500;color:var(--green)">—</div></div><div><div style="color:var(--mu);font-size:10px">PF (Emp)</div><div style="font-family:var(--fm);font-weight:500">—</div></div>';
+    return;
+  }
+  var b = calcBreakdown(basic);
+  sp.innerHTML = '<div><div style="color:var(--mu);font-size:10px">Gross</div><div style="font-family:var(--fm);font-weight:500">'+fmt(b.gross)+'</div></div><div><div style="color:var(--mu);font-size:10px">Deductions</div><div style="font-family:var(--fm);font-weight:500;color:var(--red)">'+fmt(b.totalDeductions)+'</div></div><div><div style="color:var(--mu);font-size:10px">Net Pay</div><div style="font-family:var(--fm);font-weight:500;color:var(--green)">'+fmt(b.net)+'</div></div><div><div style="color:var(--mu);font-size:10px">PF (Emp)</div><div style="font-family:var(--fm);font-weight:500">'+fmt(b.pf)+'</div></div>';
+}
+
+// ── PAYROLL ──────────────────────────────────────────
+function renderPayrollPage() {
+  document.getElementById('runMonthLabel').textContent   = MONTHS_LABEL[currentMonth];
+  document.getElementById('payrollBannerSub').textContent = 'Generate payslips for '+MONTHS_LABEL[currentMonth]+' · '+employees.filter(function(e){return e.status==='Active';}).length+' active employees';
+  renderPayrollPending();
+  renderPayrollProcessed();
+}
+
+function renderPayrollPending() {
+  var m = MONTHS_LABEL[currentMonth];
+  var pending = employees.filter(function(e) {
+    if (e.status !== 'Active') return false;
+    return !payslips.find(function(p){ return p.empId===e.id && p.month===m; });
+  });
+  document.getElementById('pendingPayrollBody').innerHTML = pending.length
+    ? pending.map(function(e) {
+        var b = calcBreakdown(e.basic);
+        return '<tr><td><input type="checkbox" class="pay-check" data-id="'+e.id+'"></td><td><strong>'+e.fname+' '+e.lname+'</strong><br><span style="font-size:10px;color:var(--mu)">'+e.id+'</span></td><td><span class="badge badge-ink">'+e.dept+'</span></td><td class="r">'+fmt(e.basic)+'</td><td class="r">'+fmt(b.hra)+'</td><td class="r">'+fmt(b.ta+b.sa)+'</td><td class="r" style="color:var(--red)">'+fmt(b.pf)+'</td><td class="r" style="color:var(--red)">'+fmt(b.tds)+'</td><td class="r" style="color:var(--green);font-weight:600">'+fmt(b.net)+'</td><td><button class="top-btn gold" style="font-size:11px;padding:4px 10px" onclick="issuePayslip(\''+e.id+'\')">Issue</button></td></tr>';
+      }).join('')
+    : '<tr><td colspan="10"><div class="empty-state"><div class="es-icon">✅</div><p>All employees have payslips for '+m+'</p></div></td></tr>';
+}
+
+function renderPayrollProcessed() {
+  var m = MONTHS_LABEL[currentMonth];
+  var proc = payslips.filter(function(p){ return p.month===m; });
+  document.getElementById('processedPayrollBody').innerHTML = proc.length
+    ? proc.map(function(p) {
+        var e = employees.find(function(emp){ return emp.id===p.empId; })||{fname:'?',lname:'',dept:'?'};
+        return '<tr><td><strong>'+e.fname+' '+e.lname+'</strong></td><td style="font-family:var(--fm);font-size:11px">'+p.month+'</td><td class="r">'+fmt(p.gross)+'</td><td class="r" style="color:var(--green);font-weight:600">'+fmt(p.netPay)+'</td><td><button class="icon-btn" onclick="viewPayslip(\''+p.empId+'\',\''+p.month+'\')">👁</button><button class="icon-btn" onclick="window.print()">🖨</button></td></tr>';
+      }).join('')
+    : '<tr><td colspan="5"><div class="empty-state"><div class="es-icon">📋</div><p>No processed payslips for '+m+'</p></div></td></tr>';
+}
+
+function toggleSelectAll() {
+  var v = document.getElementById('selectAll').checked;
+  document.querySelectorAll('.pay-check').forEach(function(c){ c.checked=v; });
+}
+
+async function issuePayslip(empId) {
+  var e = employees.find(function(emp){ return emp.id===empId; });
+  if (!e) return;
+  var m = MONTHS_LABEL[currentMonth];
+  if (payslips.find(function(p){ return p.empId===empId && p.month===m; })) { toast('Payslip already issued','err'); return; }
+  var b = calcBreakdown(e.basic);
+  var ps = { empId, month:m, gross:b.gross, deductions:b.totalDeductions, netPay:b.net,
+             issuedOn:'', breakdown:b };
+  if (_sbReady) {
+    try{ showSync('syncing','Issuing payslip…'); await upsertPayslip(ps); showSync('ok','✓ Saved',true); }catch(er){ toast('Cloud save failed','err'); console.error(er); }
+  }
+  payslips.push(ps);
+  toast('Payslip issued for '+e.fname+' '+e.lname,'ok');
+  renderPayrollPage();
+}
+
+async function runSelectedPayroll() {
+  var checked = Array.from(document.querySelectorAll('.pay-check:checked')).map(function(c){ return c.dataset.id; });
+  if (!checked.length) { toast('Select at least one employee','err'); return; }
+  for (var i=0; i<checked.length; i++) { await issuePayslipSilent(checked[i]); }
+  toast('Issued '+checked.length+' payslip(s)','ok');
+  renderPayrollPage();
+}
+
+async function issuePayslipSilent(empId) {
+  var e = employees.find(function(emp){ return emp.id===empId; });
+  if (!e) return;
+  var m = MONTHS_LABEL[currentMonth];
+  if (payslips.find(function(p){ return p.empId===empId && p.month===m; })) return;
+  var b = calcBreakdown(e.basic);
+  var ps = { empId, month:m, gross:b.gross, deductions:b.totalDeductions, netPay:b.net,
+             issuedOn:'', breakdown:b };
+  if (_sbReady) { try{ await upsertPayslip(ps); }catch(er){ console.error(er); } }
+  payslips.push(ps);
+}
+
+function showRunPayroll() { showPage('payroll', document.querySelectorAll('.nav-item')[2]); }
+
+async function runPayroll() {
+  var active = employees.filter(function(e){ return e.status==='Active'; });
+  var m = MONTHS_LABEL[currentMonth];
+  var pending = active.filter(function(e){ return !payslips.find(function(p){ return p.empId===e.id && p.month===m; }); });
+  if (!pending.length) { toast('All payslips already issued for '+m,'err'); return; }
+  var wrap  = document.getElementById('runProgressWrap');
+  var fill  = document.getElementById('runProgressFill');
+  var label = document.getElementById('runProgressLabel');
+  wrap.style.display='block';
+  var count = 0;
+  async function next() {
+    if (count >= pending.length) {
+      fill.style.width='100%'; label.textContent='Done! '+pending.length+' payslips issued';
+      renderPayrollPage(); renderDashboard();
+      toast('✓ Payroll complete — '+pending.length+' payslips','ok');
+      setTimeout(function(){ wrap.style.display='none'; fill.style.width='0%'; },3000);
+      return;
+    }
+    await issuePayslipSilent(pending[count].id);
+    count++;
+    fill.style.width=Math.round(count/pending.length*100)+'%';
+    label.textContent='Processing '+count+' of '+pending.length+'…';
+    setTimeout(next, 120);
+  }
+  next();
+}
+
+// ── PAYSLIPS ─────────────────────────────────────────
+function renderPayslips() {
+  buildPayslipMonthFilter();
+  var q  = (document.getElementById('payslipSearch').value||'').toLowerCase();
+  var mf = document.getElementById('payslipMonthFilter').value;
+  var filtered = payslips.filter(function(p) {
+    var e = employees.find(function(emp){ return emp.id===p.empId; })||{fname:'',lname:''};
+    var matchQ = !q || (e.fname+' '+e.lname+p.month).toLowerCase().includes(q);
+    var matchM = !mf || p.month===mf;
+    return matchQ && matchM;
+  });
+  document.getElementById('payslipCountLabel').textContent = payslips.length+' payslips total';
+  document.getElementById('payslipBody').innerHTML = filtered.length
+    ? filtered.slice().reverse().map(function(p) {
+        var e = employees.find(function(emp){ return emp.id===p.empId; })||{fname:'?',lname:'',dept:'?'};
+        return '<tr><td><strong>'+e.fname+' '+e.lname+'</strong></td><td style="font-family:var(--fm);font-size:11px;color:var(--mu)">'+p.empId+'</td><td><span class="badge badge-ink">'+e.dept+'</span></td><td style="font-family:var(--fm);font-size:11px">'+p.month+'</td><td class="r">'+fmt(p.gross)+'</td><td class="r" style="color:var(--red)">'+fmt(p.deductions)+'</td><td class="r" style="color:var(--green);font-weight:600">'+fmt(p.netPay)+'</td><td><button class="icon-btn" title="View" onclick="viewPayslip(\''+p.empId+'\',\''+p.month+'\')">👁</button></td></tr>';
+      }).join('')
+    : '<tr><td colspan="8"><div class="empty-state"><div class="es-icon">📄</div><p>No payslips found</p></div></td></tr>';
+}
+
+// ── PAYSLIP VIEWER ───────────────────────────────────
+function viewPayslip(empId, month) {
+  var e  = employees.find(function(emp){ return emp.id===empId; });
+  var ps = payslips.find(function(p){ return p.empId===empId && p.month===month; });
+  if (!e||!ps) { toast('Payslip not found','err'); return; }
+  document.getElementById('payslipContent').innerHTML = buildPayslipHTML(e, ps, ps.breakdown, month);
+  openModal('payslipModal');
+}
+
+function buildPayslipHTML(e, ps, b, month) {
+  return '<div class="payslip">'+
+    '<div class="ps-header"><div><div class="ps-co-name">'+settings.companyName+'</div><div class="ps-co-sub">SAG — Official Payslip</div></div><div class="ps-badge">PAYSLIP</div></div>'+
+    '<div class="ps-emp-info"><div class="ps-emp-grid">'+
+      '<div class="ps-emp-row"><span class="ps-emp-key">Employee Name</span><span class="ps-emp-val">'+e.fname+' '+e.lname+'</span></div>'+
+      '<div class="ps-emp-row"><span class="ps-emp-key">Employee ID</span><span class="ps-emp-val" style="font-family:var(--fm)">'+e.id+'</span></div>'+
+      '<div class="ps-emp-row"><span class="ps-emp-key">Designation</span><span class="ps-emp-val">'+e.desig+'</span></div>'+
+      '<div class="ps-emp-row"><span class="ps-emp-key">Department</span><span class="ps-emp-val">'+e.dept+'</span></div>'+
+      '<div class="ps-emp-row"><span class="ps-emp-key">Date of Joining</span><span class="ps-emp-val" style="font-family:var(--fm)">'+(e.join||'—')+'</span></div>'+
+      '<div class="ps-emp-row"><span class="ps-emp-key">PAN Number</span><span class="ps-emp-val" style="font-family:var(--fm)">'+(e.pan||'—')+'</span></div>'+
+      '<div class="ps-emp-row"><span class="ps-emp-key">Bank</span><span class="ps-emp-val">'+(e.bank||'—')+'</span></div>'+
+      '<div class="ps-emp-row"><span class="ps-emp-key">Account No.</span><span class="ps-emp-val" style="font-family:var(--fm)">'+(e.acc||'—')+'</span></div>'+
+    '</div></div>'+
+    '<div class="ps-meta">'+
+      '<div class="ps-meta-block"><div class="ps-meta-row"><span class="ps-meta-label">Pay Period</span><span class="ps-meta-val">'+month+'</span></div><div class="ps-meta-row"><span class="ps-meta-label">Working Days</span><span class="ps-meta-val">30 / 30</span></div></div>'+
+      '<div class="ps-meta-block"><div class="ps-meta-row"><span class="ps-meta-label">EPFO No.</span><span class="ps-meta-val">'+(settings.epfoReg||'AP/HYD/0000000')+'</span></div><div class="ps-meta-row"><span class="ps-meta-label">ESI No.</span><span class="ps-meta-val">'+(settings.esiReg||'51-000-000')+'</span></div><div class="ps-meta-row"><span class="ps-meta-label">TAN</span><span class="ps-meta-val">'+(settings.companyTAN||'PNEA00000E')+'</span></div></div>'+
+    '</div>'+
+    '<div class="ps-section-title">Earnings</div>'+
+    '<div class="ps-line"><span class="ps-line-label">Basic Salary</span><span class="ps-line-val green">'+fmt(b.basic)+'</span></div>'+
+    '<div class="ps-line"><span class="ps-line-label">House Rent Allowance (HRA)</span><span class="ps-line-val green">'+fmt(b.hra)+'</span></div>'+
+    '<div class="ps-line"><span class="ps-line-label">Transport Allowance (TA)</span><span class="ps-line-val green">'+fmt(b.ta)+'</span></div>'+
+    '<div class="ps-line"><span class="ps-line-label">Special Allowance</span><span class="ps-line-val green">'+fmt(b.sa)+'</span></div>'+
+    '<div class="ps-section-title">Deductions</div>'+
+    '<div class="ps-line"><span class="ps-line-label">Provident Fund (Employee — '+settings.pfPercent+'%)</span><span class="ps-line-val red">'+fmt(b.pf)+'</span></div>'+
+    (b.esi>0?'<div class="ps-line"><span class="ps-line-label">ESI ('+settings.esiPercent+'%)</span><span class="ps-line-val red">'+fmt(b.esi)+'</span></div>':'')+
+    '<div class="ps-line"><span class="ps-line-label">Professional Tax (PT)</span><span class="ps-line-val red">'+fmt(b.pt)+'</span></div>'+
+    '<div class="ps-line"><span class="ps-line-label">TDS / Income Tax ('+settings.tdsPercent+'%)</span><span class="ps-line-val red">'+fmt(b.tds)+'</span></div>'+
+    '<div class="ps-totals"><div class="ps-total-block"><div class="ps-total-label">Gross Earnings</div><div class="ps-total-val">'+fmt(b.gross)+'</div></div><div class="ps-total-block"><div class="ps-total-label">Total Deductions</div><div class="ps-total-val" style="color:#ff8a9a">'+fmt(b.totalDeductions)+'</div></div><div class="ps-total-block"><div class="ps-total-label">Net Pay</div><div class="ps-total-val gold">'+fmt(b.net)+'</div></div></div>'+
+    '<div class="ps-footer-note">This is a computer-generated payslip and does not require a signature. · '+settings.companyName+'<br>'+(settings.companyAddress||'Hyderabad, Andhra Pradesh, India')+'</div>'+
+  '</div>';
+}
+
+function downloadPayslip() { toast('Opening print dialog…','ok'); setTimeout(function(){ window.print(); },300); }
+
+// ── SETTINGS ─────────────────────────────────────────
+function saveSettings() {
+  settings.hraPercent  = parseFloat(document.getElementById('hraPercent').value)||0;
+  settings.taPercent   = parseFloat(document.getElementById('taPercent').value)||0;
+  settings.saPercent   = parseFloat(document.getElementById('saPercent').value)||0;
+  settings.pfPercent   = parseFloat(document.getElementById('pfPercent').value)||0;
+  settings.ptAmount    = parseFloat(document.getElementById('ptAmount').value)||0;
+  settings.tdsPercent  = parseFloat(document.getElementById('tdsPercent').value)||0;
+  settings.esiPercent  = parseFloat(document.getElementById('esiPercent').value)||0;
+  settings.autoGen     = document.getElementById('autoGenToggle').checked;
+  settings.lop         = document.getElementById('lopToggle').checked;
+  settings.companyName = document.getElementById('companyName').value;
+  settings.companyPAN  = document.getElementById('companyPAN').value;
+  settings.companyTAN  = document.getElementById('companyTAN').value;
+  settings.epfoReg     = document.getElementById('epfoReg').value;
+  settings.esiReg      = document.getElementById('esiReg').value;
+  settings.companyAddress = document.getElementById('companyAddress').value;
+  var pdEl = document.getElementById('payDate'); if (pdEl) settings.payDate = parseInt(pdEl.value)||1;
+  lsSet('sag_settings', JSON.stringify(settings));
+  if (_sbReady) saveSettingsCloud();
+}
+
+function applySettingsToUI() {
+  var s = settings;
+  loadEmailJSConfig(); // also reload EmailJS credentials
+  var safe = function(id, val){ var el=document.getElementById(id); if(el) el.value=val; };
+  safe('hraPercent', s.hraPercent); safe('taPercent', s.taPercent); safe('saPercent', s.saPercent);
+  safe('pfPercent', s.pfPercent); safe('ptAmount', s.ptAmount); safe('tdsPercent', s.tdsPercent);
+  safe('esiPercent', s.esiPercent); safe('companyName', s.companyName);
+  safe('companyPAN', s.companyPAN); safe('companyTAN', s.companyTAN);
+  safe('epfoReg', s.epfoReg); safe('esiReg', s.esiReg); safe('companyAddress', s.companyAddress);
+  safe('payDate', s.payDate || 1);
+  var at = document.getElementById('autoGenToggle'); if(at) at.checked = s.autoGen;
+  var lt = document.getElementById('lopToggle'); if(lt) lt.checked = s.lop;
+}
+
+// ── MODAL / CONFIRM / TOAST / TABS ───────────────────
+function openModal(id)  { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(function(o){
+  o.addEventListener('click', function(e){ if(e.target===o) o.classList.remove('open'); });
+});
+
+function confirmAction(msg, cb) {
+  _confirmCb = cb;
+  document.getElementById('confirmMsg').textContent = msg;
+  document.getElementById('confirmBar').classList.add('show');
+  document.getElementById('confirmYes').onclick = function() { hideConfirm(); if (_confirmCb) _confirmCb(); };
+}
+function hideConfirm() { document.getElementById('confirmBar').classList.remove('show'); _confirmCb = null; }
+
+var _tt;
+function toast(msg, type) {
+  var el = document.getElementById('toast');
+  el.textContent = msg; el.className = (type==='err'?'err':'ok')+' show';
+  clearTimeout(_tt); _tt = setTimeout(function(){ el.className=''; }, 2800);
+}
+
+function switchTab(prefix, name, el) {
+  document.querySelectorAll('[id^="'+prefix+'-"]').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.getElementById(prefix+'-'+name).classList.add('active');
+  el.classList.add('active');
+}
+
+// ══════════════════════════════════════════════════════════
+// ── AUTH / OTP ────────────────────────────────────────────
+// ══════════════════════════════════════════════════════════
+
+var _otpCode = '';
+var _otpEmail = '';
+var _otpExpiry = 0;
+var _resendTimer = null;
+var _adminUsers = [];
+var _auditLog = [];
+var _currentAdmin = null;
+
+function loadAdminUsers() {
+  var saved = lsGet('sag_admin_users');
+  if (saved) { try { _adminUsers = JSON.parse(saved); } catch(e) { _adminUsers = []; } }
+  // No hardcoded default — first-run setup handled by sendOTP below
+}
+function saveAdminUsers() { lsSet('sag_admin_users', JSON.stringify(_adminUsers)); }
+function loadAuditLog() { var s = lsGet('sag_audit_log'); try { _auditLog = s ? JSON.parse(s) : []; } catch(e) { _auditLog = []; } }
+function saveAuditLog() { lsSet('sag_audit_log', JSON.stringify(_auditLog.slice(0,50))); }
+function addAuditEntry(type, detail) {
+  _auditLog.unshift({ type:type, detail:detail, time: new Date().toLocaleString('en-IN'), email: _otpEmail||'—' });
+  saveAuditLog();
+}
+function generateOTP() { return Math.floor(100000 + Math.random() * 900000).toString(); }
+
+// ── EmailJS Configuration ──────────────────────────────────
+// You are using the built-in EmailJS "One-Time Password" template.
+// Just fill in the three values below — no template editing needed.
+//
+//  EMAILJS_PUBLIC_KEY  → Account → General → Public Key
+//  EMAILJS_SERVICE_ID  → Email Services → your service → Service ID
+//  EMAILJS_TEMPLATE_ID → Email Templates → One-Time Password → Template ID
+var EMAILJS_PUBLIC_KEY  = 'XQm1cQEgTxOwMVXdF';   // e.g. 'abc123XYZ'
+var EMAILJS_SERVICE_ID  = 'service_zxp8665';   // e.g. 'service_xyz'
+var EMAILJS_TEMPLATE_ID = 'template_gjkv478';  // e.g. 'template_abc'
+
+// ── EmailJS is initialised once at page load (not per-send)
+(function initEmailJS() {
+  function tryInit() {
+    if (typeof emailjs !== 'undefined') {
+      emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    } else {
+      setTimeout(tryInit, 300);
+    }
+  }
+  tryInit();
+})();
+
+async function _sendOTPEmail(email, adminName, otpCode) {
+  if (typeof emailjs === 'undefined') throw new Error('EmailJS SDK failed to load. Check your internet connection.');
+  // Re-init to be safe (idempotent)
+  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  // Send with ALL common variable names to work with any EmailJS template:
+  //   Built-in "One-Time Password" template uses: {{to_name}}, {{to_email}}, {{passcode}}
+  //   Custom templates may use: {{otp}}, {{code}}, {{message}}, {{from_name}}
+  var templateParams = {
+    to_name:   adminName || email,
+    to_email:  email,
+    email:     email,          // fallback
+    passcode:  otpCode,        // EmailJS built-in OTP template uses {{passcode}}
+    otp:       otpCode,        // custom template variant
+    code:      otpCode,        // another common variant
+    message:   'Your SAG Payroll verification code is: ' + otpCode + '\n\nThis code expires in 10 minutes.',
+    from_name: 'SAG Payroll',
+    reply_to:  email,
+  };
+  try {
+    var res = await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+    return res;
+  } catch(err) {
+    // Extract readable message from EmailJS error object
+    var msg = (err && err.text) ? err.text : (err && err.message) ? err.message : JSON.stringify(err);
+    throw new Error('EmailJS: ' + msg);
+  }
+}
+
+async function sendOTP() {
+  var email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  var errEl = document.getElementById('loginErr1');
+  errEl.classList.remove('show');
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.textContent = 'Please enter a valid email address.'; errEl.classList.add('show'); return;
+  }
+  loadAdminUsers();
+  var admin = _adminUsers.find(function(a){ return a.email.toLowerCase() === email; });
+
+  // ── First-run: no admins exist yet → auto-register as Super Admin ──
+  if (!_adminUsers.length) {
+    var firstName = email.split('@')[0].replace(/[._]/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});
+    admin = { name: firstName, email: email, role: 'Super Admin', addedOn: new Date().toLocaleDateString('en-IN'), active: true };
+    _adminUsers.push(admin);
+    saveAdminUsers();
+  }
+
+  if (!admin || !admin.active) {
+    errEl.textContent = 'This email is not registered as an admin. Contact your Super Admin.';
+    errEl.classList.add('show'); return;
+  }
+  var btn = document.querySelector('#loginStep1 .login-btn');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  _otpCode = generateOTP(); _otpEmail = email;
+  _otpExpiry = Date.now() + 10 * 60 * 1000; // 10-minute expiry
+
+  var okEl = document.getElementById('loginOk2');
+  var subText = document.getElementById('otpSubText');
+  okEl.classList.remove('show');
+
+  // Check if EmailJS credentials have been configured
+  var isConfigured = (EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY' &&
+                      EMAILJS_SERVICE_ID  !== 'YOUR_SERVICE_ID' &&
+                      EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID');
+
+  if (isConfigured) {
+    try {
+      await _sendOTPEmail(email, admin.name, _otpCode);
+      subText.textContent = 'A 6-digit code has been sent to ' + email + '. Check your inbox (and spam folder).';
+      okEl.textContent = '📧 Verification code sent to ' + email;
+      okEl.classList.add('show');
+    } catch(e) {
+      console.error('EmailJS error:', e);
+      var errMsg = e && e.message ? e.message : 'Unknown error';
+      errEl.textContent = 'Failed to send email: ' + errMsg + '. Check your EmailJS config.';
+      errEl.classList.add('show');
+      btn.disabled = false; btn.textContent = 'Send Verification Code →';
+      _otpCode = ''; // invalidate so it can't be guessed
+      return;
+    }
+  } else {
+    // ── Dev/Demo fallback — shows OTP only in browser console ──
+    // Remove this block once EmailJS is configured.
+    console.warn('%c[SAG DEV MODE] OTP: ' + _otpCode, 'color:orange;font-size:16px;font-weight:bold');
+    subText.textContent = 'Dev mode: EmailJS not configured. Check browser console (F12) for OTP.';
+    okEl.textContent = '⚠️ Dev mode — OTP logged to browser console only (not shown here for security).';
+    okEl.classList.add('show');
+  }
+
+  btn.disabled = false; btn.textContent = 'Send Verification Code →';
+  document.getElementById('loginStep1').classList.remove('active');
+  document.getElementById('loginStep2').classList.add('active');
+  document.getElementById('otp0').focus();
+  startResendTimer(60);
+  addAuditEntry('OTP_SENT', 'OTP sent to ' + email);
+}
+
+function startResendTimer(secs) {
+  clearInterval(_resendTimer);
+  var resendLink = document.getElementById('resendLink'), timerEl = document.getElementById('resendTimer');
+  resendLink.style.display = 'none'; timerEl.style.display = 'inline';
+  var rem = secs; timerEl.textContent = '(' + rem + 's)';
+  _resendTimer = setInterval(function() {
+    rem--; timerEl.textContent = '(' + rem + 's)';
+    if (rem <= 0) { clearInterval(_resendTimer); timerEl.style.display = 'none'; resendLink.style.display = 'inline'; }
+  }, 1000);
+}
+
+async function resendOTP() {
+  _otpCode = generateOTP();
+  _otpExpiry = Date.now() + 10 * 60 * 1000;
+  document.getElementById('loginErr2').classList.remove('show');
+  [0,1,2,3,4,5].forEach(function(i){ document.getElementById('otp'+i).value=''; });
+
+  var okEl = document.getElementById('loginOk2');
+  var isConfigured = (EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY' &&
+                      EMAILJS_SERVICE_ID  !== 'YOUR_SERVICE_ID' &&
+                      EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID');
+  if (isConfigured) {
+    loadAdminUsers();
+    var admin = _adminUsers.find(function(a){ return a.email.toLowerCase() === _otpEmail; });
+    try {
+      await _sendOTPEmail(_otpEmail, admin ? admin.name : _otpEmail, _otpCode);
+      okEl.textContent = '📧 New code sent to ' + _otpEmail; okEl.classList.add('show');
+    } catch(e) {
+      console.error('EmailJS resend error:', e);
+      okEl.textContent = '⚠️ Resend failed — check EmailJS config.'; okEl.classList.add('show');
+    }
+  } else {
+    console.warn('%c[SAG DEV MODE] Resent OTP: ' + _otpCode, 'color:orange;font-size:16px;font-weight:bold');
+    okEl.textContent = '⚠️ Dev mode — new OTP logged to browser console only.'; okEl.classList.add('show');
+  }
+
+  document.getElementById('otp0').focus(); startResendTimer(60);
+  addAuditEntry('OTP_RESENT', 'OTP resent to ' + _otpEmail);
+}
+
+function backToEmail() {
+  clearInterval(_resendTimer);
+  document.getElementById('loginStep2').classList.remove('active');
+  document.getElementById('loginStep1').classList.add('active');
+  document.getElementById('loginErr1').classList.remove('show');
+  document.getElementById('loginOk2').classList.remove('show');
+  _otpCode = '';
+}
+
+function otpInput(idx) {
+  var v = document.getElementById('otp'+idx).value.replace(/[^0-9]/g,'');
+  document.getElementById('otp'+idx).value = v;
+  if (v && idx < 5) document.getElementById('otp'+(idx+1)).focus();
+  var code = ''; for(var i=0;i<6;i++) code += document.getElementById('otp'+i).value;
+  if (code.length === 6) setTimeout(verifyOTP, 80);
+}
+
+function otpKey(e, idx) {
+  if (e.key === 'Backspace' && !document.getElementById('otp'+idx).value && idx > 0) document.getElementById('otp'+(idx-1)).focus();
+  if (e.key === 'Enter') verifyOTP();
+}
+
+function verifyOTP() {
+  var code = ''; for(var i=0;i<6;i++) code += (document.getElementById('otp'+i).value||'');
+  var errEl = document.getElementById('loginErr2'); errEl.classList.remove('show');
+  if (code.length < 6) { errEl.textContent = 'Enter all 6 digits.'; errEl.classList.add('show'); return; }
+  if (Date.now() > _otpExpiry) {
+    errEl.textContent = 'This code has expired. Please request a new one.'; errEl.classList.add('show');
+    [0,1,2,3,4,5].forEach(function(i){ document.getElementById('otp'+i).value=''; });
+    document.getElementById('otp0').focus();
+    addAuditEntry('OTP_EXPIRED', 'Expired OTP attempt for ' + _otpEmail); return;
+  }
+  if (code !== _otpCode) {
+    errEl.textContent = 'Incorrect code. Please try again.'; errEl.classList.add('show');
+    [0,1,2,3,4,5].forEach(function(i){ document.getElementById('otp'+i).value=''; });
+    document.getElementById('otp0').focus();
+    addAuditEntry('OTP_FAILED', 'Wrong OTP attempt for ' + _otpEmail); return;
+  }
+  clearInterval(_resendTimer);
+  loadAdminUsers();
+  _currentAdmin = _adminUsers.find(function(a){ return a.email.toLowerCase() === _otpEmail; });
+  var loginTime = new Date().toLocaleString('en-IN');
+  addAuditEntry('LOGIN_SUCCESS', 'Signed in as ' + (_currentAdmin ? _currentAdmin.name : _otpEmail));
+  lsSet('sag_session', JSON.stringify({ email:_otpEmail, time:loginTime, name:_currentAdmin ? _currentAdmin.name : _otpEmail }));
+  var initials = (_currentAdmin && _currentAdmin.name) ? _currentAdmin.name.split(' ').map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase() : 'AD';
+  document.getElementById('sidebarAvatar').textContent = initials;
+  document.getElementById('sidebarName').textContent = _currentAdmin ? _currentAdmin.name : _otpEmail;
+  document.getElementById('sidebarEmail').textContent = _otpEmail;
+  document.getElementById('adminKpiLastLogin').textContent = loginTime.split(',')[1] ? loginTime.split(',')[1].trim() : loginTime;
+  document.getElementById('adminKpiSessionSub').textContent = _otpEmail;
+  document.getElementById('loginScreen').classList.add('hidden');
+  appInit();
+}
+
+function logout() {
+  lsSet('sag_session','');
+  _currentAdmin = null; _otpCode = ''; _otpExpiry = 0; _sbReady = false;
+  [0,1,2,3,4,5].forEach(function(i){ document.getElementById('otp'+i).value=''; });
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginErr1').classList.remove('show');
+  document.getElementById('loginOk2').classList.remove('show');
+  document.getElementById('loginErr2').classList.remove('show');
+  document.getElementById('loginStep2').classList.remove('active');
+  document.getElementById('loginStep1').classList.add('active');
+  document.getElementById('loginScreen').classList.remove('hidden');
+  addAuditEntry('LOGOUT', 'Logged out');
+}
+
+// ── ADMIN PANEL ──────────────────────────────────────────
+function renderAdminPage() {
+  loadAdminUsers(); loadAuditLog();
+  document.getElementById('adminKpiUsers').textContent = _adminUsers.filter(function(a){ return a.active; }).length;
+  var ul = document.getElementById('adminUsersList');
+  ul.innerHTML = _adminUsers.map(function(a, idx) {
+    var initials = a.name.split(' ').map(function(w){ return w[0]; }).join('').slice(0,2).toUpperCase();
+    var isMe = a.email.toLowerCase() === _otpEmail;
+    return '<div class="admin-user-row">' +
+      '<div class="admin-user-avatar">' + initials + '</div>' +
+      '<div class="admin-user-info"><div class="admin-user-name">' + a.name + (isMe?' <span style="font-size:9px;background:var(--gold-dim);color:var(--gold);border-radius:4px;padding:2px 6px;font-weight:600">YOU</span>':'') + '</div>' +
+      '<div class="admin-user-meta">' + a.email + ' &middot; ' + a.role + ' &middot; Added ' + a.addedOn + '</div></div>' +
+      '<span class="badge ' + (a.active?'badge-green':'badge-red') + '" style="margin-right:8px">' + (a.active?'Active':'Disabled') + '</span>' +
+      (!isMe ? '<button class="icon-btn danger" onclick="removeAdmin('+idx+')" title="Remove">&#x2715;</button>' : '') +
+    '</div>';
+  }).join('') || '<div class="empty-state"><p>No admins found</p></div>';
+  var al = document.getElementById('auditLogList');
+  al.innerHTML = _auditLog.length ? _auditLog.slice(0,15).map(function(e) {
+    var color = e.type==='LOGIN_SUCCESS'?'var(--green)':e.type==='LOGOUT'?'var(--gold)':e.type.indexOf('FAIL')>-1?'var(--red)':'var(--teal)';
+    var icon = e.type==='LOGIN_SUCCESS'?'&#x2714;':e.type==='LOGOUT'?'&#x21A6;':e.type.indexOf('FAIL')>-1?'&#x26A0;':'&#x2709;';
+    return '<div class="admin-log-row"><div class="admin-log-dot" style="background:'+color+'"></div>' +
+      '<div style="flex:1;font-size:12px">' + icon + ' ' + e.detail + ' <span style="color:var(--mu)">&mdash; ' + e.email + '</span></div>' +
+      '<div class="admin-log-time">' + e.time + '</div></div>';
+  }).join('') : '<div style="padding:16px;font-size:12px;color:var(--mu);text-align:center">No login activity yet</div>';
+}
+
+function openAddAdmin() {
+  document.getElementById('newAdminName').value='';
+  document.getElementById('newAdminEmail').value='';
+  document.getElementById('newAdminRole').value='Payroll Admin';
+  openModal('addAdminModal');
+}
+
+function saveNewAdmin() {
+  var name=document.getElementById('newAdminName').value.trim();
+  var email=document.getElementById('newAdminEmail').value.trim().toLowerCase();
+  var role=document.getElementById('newAdminRole').value;
+  if (!name||!email) { toast('Name and email required','err'); return; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { toast('Invalid email','err'); return; }
+  if (_adminUsers.find(function(a){ return a.email.toLowerCase()===email; })) { toast('Email already an admin','err'); return; }
+  _adminUsers.push({ name:name, email:email, role:role, addedOn:new Date().toLocaleDateString('en-IN'), active:true });
+  saveAdminUsers(); closeModal('addAdminModal'); renderAdminPage();
+  toast(name+' added as admin','ok');
+  addAuditEntry('ADMIN_ADDED', name+' ('+email+') added as '+role);
+}
+
+function removeAdmin(idx) {
+  var a = _adminUsers[idx]; if(!a) return;
+  if (a.email.toLowerCase()===_otpEmail) { toast("Can't remove yourself",'err'); return; }
+  _adminUsers.splice(idx,1); saveAdminUsers(); renderAdminPage();
+  toast(a.name+' removed','ok');
+  addAuditEntry('ADMIN_REMOVED', a.name+' ('+a.email+') removed');
+}
+
+// Patch showPage and pageTitles for admin
+var _origShowPage = showPage;
+showPage = function(name, el) { _origShowPage(name, el); if (name==='admin') renderAdminPage(); };
+pageTitles['admin'] = 'Admin Panel';
+
+// ── EmailJS Settings UI ──────────────────────────────────
+function saveEmailJSConfig() {
+  var pk = document.getElementById('ejsPublicKey');
+  var si = document.getElementById('ejsServiceId');
+  var ti = document.getElementById('ejsTemplateId');
+  if (pk && pk.value.trim()) { EMAILJS_PUBLIC_KEY  = pk.value.trim(); lsSet('sag_ejs_pk',  EMAILJS_PUBLIC_KEY); }
+  if (si && si.value.trim()) { EMAILJS_SERVICE_ID  = si.value.trim(); lsSet('sag_ejs_si',  EMAILJS_SERVICE_ID); }
+  if (ti && ti.value.trim()) { EMAILJS_TEMPLATE_ID = ti.value.trim(); lsSet('sag_ejs_ti',  EMAILJS_TEMPLATE_ID); }
+  // Re-init with new key
+  if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  }
+}
+
+function loadEmailJSConfig() {
+  var pk = lsGet('sag_ejs_pk'); var si = lsGet('sag_ejs_si'); var ti = lsGet('sag_ejs_ti');
+  if (pk) { EMAILJS_PUBLIC_KEY  = pk; var el=document.getElementById('ejsPublicKey');  if(el) el.value=pk; }
+  if (si) { EMAILJS_SERVICE_ID  = si; var el=document.getElementById('ejsServiceId');  if(el) el.value=si; }
+  if (ti) { EMAILJS_TEMPLATE_ID = ti; var el=document.getElementById('ejsTemplateId'); if(el) el.value=ti; }
+}
+
+async function testEmailJS() {
+  saveEmailJSConfig();
+  var statusEl = document.getElementById('ejsTestStatus');
+  if (EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY' || EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID' || EMAILJS_TEMPLATE_ID === 'YOUR_TEMPLATE_ID') {
+    statusEl.textContent = '✗ Fill in all three EmailJS credentials first.';
+    statusEl.style.color = 'var(--red)';
+    return;
+  }
+  var testEmail = _otpEmail || prompt('Enter your email to receive the test OTP:');
+  if (!testEmail) return;
+  statusEl.textContent = 'Sending test OTP to ' + testEmail + '…';
+  statusEl.style.color = 'var(--teal)';
+  var testCode = generateOTP();
+  try {
+    await _sendOTPEmail(testEmail, 'Admin', testCode);
+    statusEl.textContent = '✓ Test OTP sent to ' + testEmail + '! Check your inbox. Code: ' + testCode;
+    statusEl.style.color = 'var(--green)';
+  } catch(e) {
+    statusEl.textContent = '✗ Failed: ' + (e.message || e);
+    statusEl.style.color = 'var(--red)';
+    console.error('Test EmailJS error:', e);
+  }
+}
+
+// ── Salary Structure Save/Reset ──────────────────────────────
+var _salarySaved = {}; // snapshot of last saved values
+
+var _salaryFields = ['hraPercent','taPercent','saPercent','pfPercent','ptAmount','tdsPercent','esiPercent','autoGenToggle','lopToggle'];
+
+function _getSalarySnapshot() {
+  var snap = {};
+  _salaryFields.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    snap[id] = el.type === 'checkbox' ? el.checked : el.value;
+  });
+  return snap;
+}
+
+function markSalaryDirty() {
+  var badge = document.getElementById('salaryUnsavedBadge');
+  var resetBtn = document.getElementById('salaryResetBtn');
+  var footerNote = document.getElementById('salaryUnsavedFooter');
+  var footerReset = document.getElementById('salaryResetBtnFooter');
+  var saveBtn = document.getElementById('salarySaveBtn');
+  if (badge) badge.style.display = 'inline-block';
+  if (resetBtn) resetBtn.style.display = '';
+  if (footerNote) footerNote.style.display = 'inline';
+  if (footerReset) footerReset.style.display = '';
+  if (saveBtn) { saveBtn.style.background = 'var(--gold)'; saveBtn.textContent = '💾 Save Structure'; }
+}
+
+function _clearSalaryDirty() {
+  var badge = document.getElementById('salaryUnsavedBadge');
+  var resetBtn = document.getElementById('salaryResetBtn');
+  var footerNote = document.getElementById('salaryUnsavedFooter');
+  var footerReset = document.getElementById('salaryResetBtnFooter');
+  var saveBtn = document.getElementById('salarySaveBtn');
+  if (badge) badge.style.display = 'none';
+  if (resetBtn) resetBtn.style.display = 'none';
+  if (footerNote) footerNote.style.display = 'none';
+  if (footerReset) footerReset.style.display = 'none';
+  if (saveBtn) { saveBtn.style.background = 'var(--green)'; saveBtn.textContent = '✓ Saved'; setTimeout(function(){ saveBtn.style.background=''; saveBtn.textContent='💾 Save Structure'; }, 2000); }
+}
+
+function saveSalaryConfig() {
+  // Validate
+  var hra = parseFloat(document.getElementById('hraPercent').value);
+  var ta  = parseFloat(document.getElementById('taPercent').value);
+  var sa  = parseFloat(document.getElementById('saPercent').value);
+  var pf  = parseFloat(document.getElementById('pfPercent').value);
+  var pt  = parseFloat(document.getElementById('ptAmount').value);
+  var tds = parseFloat(document.getElementById('tdsPercent').value);
+  var esi = parseFloat(document.getElementById('esiPercent').value);
+  if ([hra,ta,sa,pf,tds,esi].some(isNaN) || isNaN(pt)) { toast('Please enter valid numbers for all fields','err'); return; }
+  if (hra<0||hra>100||ta<0||ta>100||sa<0||sa>100||pf<0||pf>100||tds<0||tds>40||esi<0||esi>10) { toast('One or more values are out of allowed range','err'); return; }
+  // Persist via existing saveSettings()
+  saveSettings();
+  _salarySaved = _getSalarySnapshot();
+  _clearSalaryDirty();
+  toast('Salary structure saved successfully','ok');
+  addAuditEntry && addAuditEntry('SALARY_SAVED', 'HRA '+hra+'% | TA '+ta+'% | SA '+sa+'% | PF '+pf+'% | PT ₹'+pt+' | TDS '+tds+'% | ESI '+esi+'%');
+}
+
+function resetSalaryConfig() {
+  if (!Object.keys(_salarySaved).length) { toast('No saved state to reset to','err'); return; }
+  _salaryFields.forEach(function(id) {
+    var el = document.getElementById(id); if (!el || _salarySaved[id] === undefined) return;
+    if (el.type === 'checkbox') el.checked = _salarySaved[id];
+    else el.value = _salarySaved[id];
+  });
+  _clearSalaryDirty();
+  toast('Reset to last saved values','ok');
+}
+
+
+// ── CREATE PAYSLIP (any month/year) ──────────────────
+function openCreatePayslip() {
+  // Populate employee dropdown
+  var sel = document.getElementById('cpEmployee');
+  sel.innerHTML = employees.filter(function(e){ return e.status==='Active'; })
+    .map(function(e){ return '<option value="'+e.id+'">'+e.fname+' '+e.lname+' ('+e.id+')</option>'; }).join('');
+  if (!sel.options.length) { toast('No active employees found','err'); return; }
+
+  // Populate year dropdown
+  var ySel = document.getElementById('cpYear');
+  ySel.innerHTML = '';
+  for (var y = 2020; y <= 2030; y++) {
+    var opt = document.createElement('option');
+    opt.value = y; opt.textContent = y;
+    if (y === currentYear) opt.selected = true;
+    ySel.appendChild(opt);
+  }
+  document.getElementById('cpMonth').value = currentMonth;
+
+  // Wire live preview
+  sel.onchange = cpUpdatePreview;
+  document.getElementById('cpMonth').onchange = cpUpdatePreview;
+  ySel.onchange = cpUpdatePreview;
+
+  cpUpdatePreview();
+  openModal('createPayslipModal');
+}
+
+function cpUpdatePreview() {
+  var empId = document.getElementById('cpEmployee').value;
+  var emp = employees.find(function(e){ return e.id===empId; });
+  if (!emp) return;
+  var b = calcBreakdown(emp.basic);
+  document.getElementById('cpPreview').innerHTML =
+    '<div><div style="color:var(--mu);font-size:10px">Gross</div><div style="font-family:var(--fm);font-weight:500">'+fmt(b.gross)+'</div></div>'+
+    '<div><div style="color:var(--mu);font-size:10px">Deductions</div><div style="font-family:var(--fm);font-weight:500;color:var(--red)">'+fmt(b.totalDeductions)+'</div></div>'+
+    '<div><div style="color:var(--mu);font-size:10px">Net Pay</div><div style="font-family:var(--fm);font-weight:500;color:var(--green)">'+fmt(b.net)+'</div></div>';
+
+  var mi   = parseInt(document.getElementById('cpMonth').value);
+  var yr   = parseInt(document.getElementById('cpYear').value);
+  var mLbl = MONTH_NAMES[mi] + ' ' + yr;
+  var dup  = payslips.find(function(p){ return p.empId===empId && p.month===mLbl; });
+  document.getElementById('cpDupWarn').style.display = dup ? '' : 'none';
+}
+
+async function saveCreatedPayslip() {
+  var empId = document.getElementById('cpEmployee').value;
+  var mi    = parseInt(document.getElementById('cpMonth').value);
+  var yr    = parseInt(document.getElementById('cpYear').value);
+  var emp   = employees.find(function(e){ return e.id===empId; });
+  if (!emp) { toast('Select an employee','err'); return; }
+
+  var mLbl = MONTH_NAMES[mi] + ' ' + yr;
+  // Remove existing if overwrite
+  payslips = payslips.filter(function(p){ return !(p.empId===empId && p.month===mLbl); });
+
+  var b  = calcBreakdown(emp.basic);
+  var ps = { empId: empId, month: mLbl, gross: b.gross, deductions: b.totalDeductions,
+             netPay: b.net, issuedOn: '', breakdown: b };
+
+  var btn = document.getElementById('cpSaveBtn');
+  btn.disabled = true; btn.textContent = 'Saving…';
+
+  if (_sbReady) {
+    try {
+      showSync('syncing', 'Saving payslip…');
+      await upsertPayslip(ps);
+      showSync('ok', '✓ Saved to Supabase', true);
+    } catch(er) {
+      toast('Cloud save failed: ' + er.message, 'err');
+      btn.disabled = false; btn.textContent = 'Create Payslip';
+      return;
+    }
+  }
+
+  payslips.push(ps);
+  btn.disabled = false; btn.textContent = 'Create Payslip';
+  closeModal('createPayslipModal');
+  toast('Payslip created for '+emp.fname+' '+emp.lname+' · '+mLbl,'ok');
+  addAuditEntry && addAuditEntry('PAYSLIP_CREATED', emp.fname+' '+emp.lname+' · '+mLbl);
+
+  // Rebuild month filter and refresh
+  buildPayslipMonthFilter();
+  renderPayslips();
+  renderDashboard();
+}
+
+// App init called after login
+function appInit() {
+  initYearSelect();
+  loadEmailJSConfig(); // restore saved EmailJS credentials
+  var savedUrl = lsGet('sag_sb_url') || SB_URL;
+  var savedKey = lsGet('sag_sb_key') || SB_KEY;
+  SB_URL = savedUrl; SB_KEY = savedKey;
+  var su = document.getElementById('sbUrl'); if(su) su.value = savedUrl;
+  var sk = document.getElementById('sbKey'); if(sk) sk.value = savedKey;
+  lsSet('sag_sb_url', SB_URL); lsSet('sag_sb_key', SB_KEY);
+  var ls = lsGet('sag_settings');
+  if (ls) { try{ settings = Object.assign(settings, JSON.parse(ls)); applySettingsToUI(); }catch(e){} }
+  if (SB_URL && SB_KEY) { initSupabase(); }
+  else {
+    showSync('err', '\u26A0 Not connected \u2014 go to Settings to add Supabase credentials');
+    employees = [
+      {id:'SAG-001',fname:'Arun',lname:'Reddy',desig:'Sr. Software Engineer',dept:'Engineering',join:'2022-03-15',basic:75000,pan:'ABCPR1234K',acc:'1234567890',ifsc:'HDFC0001234',bank:'HDFC Bank',status:'Active'},
+      {id:'SAG-002',fname:'Priya',lname:'Sharma',desig:'Product Manager',dept:'Engineering',join:'2021-07-01',basic:90000,pan:'BCDQS2345L',acc:'2345678901',ifsc:'ICIC0001234',bank:'ICICI Bank',status:'Active'},
+      {id:'SAG-003',fname:'Rahul',lname:'Verma',desig:'Sales Executive',dept:'Sales',join:'2023-01-10',basic:45000,pan:'CDERT3456M',acc:'3456789012',ifsc:'SBIN0001234',bank:'SBI',status:'Active'},
+      {id:'SAG-004',fname:'Sneha',lname:'Patel',desig:'UI/UX Designer',dept:'Design',join:'2022-11-20',basic:60000,pan:'DEFTU4567N',acc:'4567890123',ifsc:'AXIS0001234',bank:'Axis Bank',status:'Active'},
+      {id:'SAG-005',fname:'Kiran',lname:'Nair',desig:'HR Executive',dept:'HR',join:'2020-06-01',basic:50000,pan:'EFGUV5678O',acc:'5678901234',ifsc:'KOTAK0001234',bank:'Kotak Bank',status:'Active'},
+      {id:'SAG-006',fname:'Divya',lname:'Menon',desig:'Finance Analyst',dept:'Finance',join:'2021-09-15',basic:65000,pan:'FGHVW6789P',acc:'6789012345',ifsc:'HDFC0005678',bank:'HDFC Bank',status:'Active'},
+      {id:'SAG-007',fname:'Suresh',lname:'Kumar',desig:'Marketing Manager',dept:'Marketing',join:'2019-04-01',basic:80000,pan:'GHIWX7890Q',acc:'7890123456',ifsc:'ICIC0005678',bank:'ICICI Bank',status:'Active'},
+    ];
+    autoSeedPayslips(); renderAll();
+  }
+  loadAuditLog();
+  // Capture initial salary snapshot so Reset knows the baseline
+  setTimeout(function(){ _salarySaved = _getSalarySnapshot(); }, 0);
+}
+
+</script>
+
+<!-- CREATE PAYSLIP MODAL -->
+<div class="modal-overlay" id="createPayslipModal">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-head">
+      <div class="modal-title">Create Payslip</div>
+      <button class="modal-close" onclick="closeModal('createPayslipModal')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div style="font-size:12px;color:var(--mu);margin-bottom:4px">Generate a payslip for any employee for any month and year.</div>
+      <div class="field">
+        <label>Employee</label>
+        <select id="cpEmployee"></select>
+      </div>
+      <div class="form-grid">
+        <div class="field">
+          <label>Month</label>
+          <select id="cpMonth">
+            <option value="0">January</option><option value="1">February</option>
+            <option value="2">March</option><option value="3">April</option>
+            <option value="4">May</option><option value="5">June</option>
+            <option value="6">July</option><option value="7">August</option>
+            <option value="8">September</option><option value="9">October</option>
+            <option value="10">November</option><option value="11">December</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Year</label>
+          <select id="cpYear"></select>
+        </div>
+      </div>
+      <div style="background:var(--paper);border:1px solid var(--paper3);border-radius:8px;padding:12px 14px" id="cpPreviewWrap">
+        <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);font-weight:600;margin-bottom:8px">Salary Preview</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;font-size:12px" id="cpPreview">
+          <div><div style="color:var(--mu);font-size:10px">Gross</div><div style="font-family:var(--fm);font-weight:500">—</div></div>
+          <div><div style="color:var(--mu);font-size:10px">Deductions</div><div style="font-family:var(--fm);font-weight:500">—</div></div>
+          <div><div style="color:var(--mu);font-size:10px">Net Pay</div><div style="font-family:var(--fm);font-weight:500;color:var(--green)">—</div></div>
+        </div>
+      </div>
+      <div id="cpDupWarn" style="display:none;font-size:11px;color:var(--gold);background:var(--gold-dim);border:1px solid rgba(201,168,76,.25);padding:8px 12px;border-radius:7px;font-weight:500">
+        ⚠ A payslip already exists for this employee and month. Saving will overwrite it.
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="top-btn ghost" onclick="closeModal('createPayslipModal')">Cancel</button>
+      <button class="top-btn gold" id="cpSaveBtn" onclick="saveCreatedPayslip()">Create Payslip</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD ADMIN MODAL -->
+<div class="modal-overlay" id="addAdminModal">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head">
+      <div class="modal-title">Add Admin User</div>
+      <button class="modal-close" onclick="closeModal('addAdminModal')">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="field"><label>Full Name</label><input id="newAdminName" placeholder="Ravi Kumar"></div>
+      <div class="field"><label>Email Address</label><input id="newAdminEmail" type="email" placeholder="ravi@company.com"></div>
+      <div class="field"><label>Role</label>
+        <select id="newAdminRole">
+          <option value="Super Admin">Super Admin</option>
+          <option value="Payroll Admin">Payroll Admin</option>
+          <option value="HR Admin">HR Admin</option>
+          <option value="View Only">View Only</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="top-btn ghost" onclick="closeModal('addAdminModal')">Cancel</button>
+      <button class="top-btn gold" onclick="saveNewAdmin()">Add Admin</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
